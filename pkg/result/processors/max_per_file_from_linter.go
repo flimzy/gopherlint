@@ -1,14 +1,14 @@
 package processors
 
 import (
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters/gci"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters/gofmt"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters/gofumpt"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters/goimports"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters/golines"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters/swaggo"
-	"github.com/golangci/golangci-lint/v2/pkg/result"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/goformatters/gci"
+	"github.com/flimzy/gopherlint/pkg/goformatters/gofmt"
+	"github.com/flimzy/gopherlint/pkg/goformatters/gofumpt"
+	"github.com/flimzy/gopherlint/pkg/goformatters/goimports"
+	"github.com/flimzy/gopherlint/pkg/goformatters/golines"
+	"github.com/flimzy/gopherlint/pkg/goformatters/swaggo"
+	"github.com/flimzy/gopherlint/pkg/result"
 )
 
 var _ Processor = (*MaxPerFileFromLinter)(nil)

@@ -3,8 +3,8 @@ package errorlint
 import (
 	"codeberg.org/polyfloyd/go-errorlint/errorlint"
 
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
 )
 
 func New(settings *config.ErrorLintSettings) *goanalysis.Linter {

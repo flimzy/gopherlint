@@ -8,17 +8,17 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"github.com/golangci/golangci-lint/v2/internal/errorutil"
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/fsutils"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters"
-	"github.com/golangci/golangci-lint/v2/pkg/goutil"
-	"github.com/golangci/golangci-lint/v2/pkg/lint/linter"
-	"github.com/golangci/golangci-lint/v2/pkg/lint/lintersdb"
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
-	"github.com/golangci/golangci-lint/v2/pkg/result"
-	"github.com/golangci/golangci-lint/v2/pkg/result/processors"
-	"github.com/golangci/golangci-lint/v2/pkg/timeutils"
+	"github.com/flimzy/gopherlint/internal/errorutil"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/fsutils"
+	"github.com/flimzy/gopherlint/pkg/goformatters"
+	"github.com/flimzy/gopherlint/pkg/goutil"
+	"github.com/flimzy/gopherlint/pkg/lint/linter"
+	"github.com/flimzy/gopherlint/pkg/lint/lintersdb"
+	"github.com/flimzy/gopherlint/pkg/logutils"
+	"github.com/flimzy/gopherlint/pkg/result"
+	"github.com/flimzy/gopherlint/pkg/result/processors"
+	"github.com/flimzy/gopherlint/pkg/timeutils"
 )
 
 type processorStat struct {

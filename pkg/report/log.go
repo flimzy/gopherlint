@@ -5,7 +5,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
+	"github.com/flimzy/gopherlint/pkg/logutils"
 )
 
 type LogWrapper struct {

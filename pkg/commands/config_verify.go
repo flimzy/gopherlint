@@ -19,7 +19,7 @@ import (
 	"github.com/spf13/pflag"
 	"go.yaml.in/yaml/v3"
 
-	"github.com/golangci/golangci-lint/v2/pkg/exitcodes"
+	"github.com/flimzy/gopherlint/pkg/exitcodes"
 )
 
 type verifyOptions struct {

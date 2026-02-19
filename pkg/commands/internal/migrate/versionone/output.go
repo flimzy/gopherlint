@@ -3,7 +3,7 @@ package versionone
 import (
 	"strings"
 
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal/migrate/ptr"
+	"github.com/flimzy/gopherlint/pkg/commands/internal/migrate/ptr"
 )
 
 type Output struct {

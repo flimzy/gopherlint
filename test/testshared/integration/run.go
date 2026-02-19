@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
-	"github.com/golangci/golangci-lint/v2/test/testshared"
+	"github.com/flimzy/gopherlint/pkg/logutils"
+	"github.com/flimzy/gopherlint/test/testshared"
 )
 
 const testdataDir = "testdata"

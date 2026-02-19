@@ -7,7 +7,7 @@ import (
 	// The packages `slices` have been randomly chosen to import `golang.org/x/exp`.
 	_ "golang.org/x/exp/slices"
 
-	"github.com/golangci/golangci-lint/v2/test/testshared/integration"
+	"github.com/flimzy/gopherlint/test/testshared/integration"
 )
 
 func TestFromTestdata(t *testing.T) {

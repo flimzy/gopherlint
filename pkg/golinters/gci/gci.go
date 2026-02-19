@@ -1,11 +1,11 @@
 package gci
 
 import (
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters"
-	gcibase "github.com/golangci/golangci-lint/v2/pkg/goformatters/gci"
-	"github.com/golangci/golangci-lint/v2/pkg/golinters/internal"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/goformatters"
+	gcibase "github.com/flimzy/gopherlint/pkg/goformatters/gci"
+	"github.com/flimzy/gopherlint/pkg/golinters/internal"
 )
 
 const linterName = "gci"

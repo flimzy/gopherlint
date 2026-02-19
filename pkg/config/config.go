@@ -14,7 +14,7 @@ import (
 	"github.com/ldez/grignotin/gomod"
 	"golang.org/x/mod/modfile"
 
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
+	"github.com/flimzy/gopherlint/pkg/logutils"
 )
 
 // defaultGoVersion the value should be "oldstable" - 1.

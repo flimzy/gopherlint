@@ -3,8 +3,8 @@ package modernize
 import (
 	"slices"
 
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/modernize"

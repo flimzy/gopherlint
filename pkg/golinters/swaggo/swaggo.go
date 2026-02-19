@@ -1,10 +1,10 @@
 package swaggo
 
 import (
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters/swaggo"
-	"github.com/golangci/golangci-lint/v2/pkg/golinters/internal"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/goformatters"
+	"github.com/flimzy/gopherlint/pkg/goformatters/swaggo"
+	"github.com/flimzy/gopherlint/pkg/golinters/internal"
 )
 
 func New() *goanalysis.Linter {

@@ -3,7 +3,7 @@ package golines
 import (
 	"github.com/golangci/golines/shorten"
 
-	"github.com/golangci/golangci-lint/v2/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/config"
 )
 
 const Name = "golines"

@@ -25,8 +25,8 @@ import (
 	"github.com/rogpeppe/go-internal/lockedfile"
 	"github.com/rogpeppe/go-internal/robustio"
 
-	"github.com/golangci/golangci-lint/v2/internal/go/base"
-	"github.com/golangci/golangci-lint/v2/internal/go/mmap"
+	"github.com/flimzy/gopherlint/internal/go/base"
+	"github.com/flimzy/gopherlint/internal/go/mmap"
 )
 
 // An ActionID is a cache action key, the hash of a complete description of a

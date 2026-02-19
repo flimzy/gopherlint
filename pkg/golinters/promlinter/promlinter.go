@@ -7,10 +7,10 @@ import (
 	"github.com/yeya24/promlinter"
 	"golang.org/x/tools/go/analysis"
 
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
-	"github.com/golangci/golangci-lint/v2/pkg/lint/linter"
-	"github.com/golangci/golangci-lint/v2/pkg/result"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/lint/linter"
+	"github.com/flimzy/gopherlint/pkg/result"
 )
 
 const linterName = "promlinter"

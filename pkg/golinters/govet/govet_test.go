@@ -13,7 +13,7 @@ import (
 	"golang.org/x/tools/go/analysis/passes/cgocall"
 	"golang.org/x/tools/go/analysis/passes/shadow"
 
-	"github.com/golangci/golangci-lint/v2/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/config"
 )
 
 func TestGovet(t *testing.T) {

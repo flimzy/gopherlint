@@ -14,9 +14,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/golangci/golangci-lint/v2/pkg/exitcodes"
-	"github.com/golangci/golangci-lint/v2/pkg/fsutils"
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
+	"github.com/flimzy/gopherlint/pkg/exitcodes"
+	"github.com/flimzy/gopherlint/pkg/fsutils"
+	"github.com/flimzy/gopherlint/pkg/logutils"
 )
 
 // value: "1"

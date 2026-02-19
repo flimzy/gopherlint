@@ -5,9 +5,9 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal"
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/exitcodes"
+	"github.com/flimzy/gopherlint/pkg/commands/internal"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/exitcodes"
 )
 
 const defaultMaxIssuesPerLinter = 50

@@ -7,8 +7,8 @@ import (
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
 
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
-	"github.com/golangci/golangci-lint/v2/pkg/golinters/internal"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/golinters/internal"
 )
 
 func New() *goanalysis.Linter {

@@ -1,11 +1,11 @@
 package gofmt
 
 import (
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters"
-	gofmtbase "github.com/golangci/golangci-lint/v2/pkg/goformatters/gofmt"
-	"github.com/golangci/golangci-lint/v2/pkg/golinters/internal"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/goformatters"
+	gofmtbase "github.com/flimzy/gopherlint/pkg/goformatters/gofmt"
+	"github.com/flimzy/gopherlint/pkg/golinters/internal"
 )
 
 func New(settings *config.GoFmtSettings) *goanalysis.Linter {

@@ -8,8 +8,8 @@ import (
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal"
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
+	"github.com/flimzy/gopherlint/pkg/commands/internal"
+	"github.com/flimzy/gopherlint/pkg/logutils"
 )
 
 const envKeepTempFiles = "CUSTOM_GCL_KEEP_TEMP_FILES"

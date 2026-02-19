@@ -3,7 +3,7 @@
 package gci
 
 import (
-	"github.com/golangci/golangci-lint/v2/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/config"
 	"golang.org/x/tools/go/analysis"
 
 	"fmt"

@@ -7,7 +7,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/golangci/golangci-lint/v2/pkg/exitcodes"
+	"github.com/flimzy/gopherlint/pkg/exitcodes"
 )
 
 const (

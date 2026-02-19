@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/require"
 	_ "github.com/valyala/quicktemplate"
 
-	"github.com/golangci/golangci-lint/v2/pkg/exitcodes"
-	"github.com/golangci/golangci-lint/v2/test/testshared"
+	"github.com/flimzy/gopherlint/pkg/exitcodes"
+	"github.com/flimzy/gopherlint/test/testshared"
 )
 
 const minimalPkg = "minimalpkg"

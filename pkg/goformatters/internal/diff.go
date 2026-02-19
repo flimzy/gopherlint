@@ -11,8 +11,8 @@ import (
 	diffpkg "github.com/sourcegraph/go-diff/diff"
 	"golang.org/x/tools/go/analysis"
 
-	"github.com/golangci/golangci-lint/v2/pkg/goanalysis"
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
+	"github.com/flimzy/gopherlint/pkg/goanalysis"
+	"github.com/flimzy/gopherlint/pkg/logutils"
 )
 
 type Change struct {

@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/golangci/golangci-lint/v2/internal/go/testenv"
+	"github.com/flimzy/gopherlint/internal/go/testenv"
 )
 
 func init() {

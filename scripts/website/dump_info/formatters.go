@@ -4,11 +4,11 @@ import (
 	"maps"
 	"slices"
 
-	"github.com/golangci/golangci-lint/v2/pkg/config"
-	"github.com/golangci/golangci-lint/v2/pkg/goformatters"
-	"github.com/golangci/golangci-lint/v2/pkg/lint/linter"
-	"github.com/golangci/golangci-lint/v2/pkg/lint/lintersdb"
-	"github.com/golangci/golangci-lint/v2/scripts/website/types"
+	"github.com/flimzy/gopherlint/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/goformatters"
+	"github.com/flimzy/gopherlint/pkg/lint/linter"
+	"github.com/flimzy/gopherlint/pkg/lint/lintersdb"
+	"github.com/flimzy/gopherlint/scripts/website/types"
 )
 
 func saveFormatters(dst string) error {

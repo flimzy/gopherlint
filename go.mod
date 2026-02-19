@@ -1,4 +1,4 @@
-module github.com/golangci/golangci-lint/v2
+module github.com/flimzy/gopherlint
 
 // The minimum Go version must always be latest-1.
 // This version should never be changed outside of the PR to add the support of newer Go version.

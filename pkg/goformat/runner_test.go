@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/golangci/golangci-lint/v2/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/config"
 )
 
 func TestRunnerOptions_MatchAnyPattern(t *testing.T) {

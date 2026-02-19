@@ -4,9 +4,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal/migrate/ptr"
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal/migrate/versionone"
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal/migrate/versiontwo"
+	"github.com/flimzy/gopherlint/pkg/commands/internal/migrate/ptr"
+	"github.com/flimzy/gopherlint/pkg/commands/internal/migrate/versionone"
+	"github.com/flimzy/gopherlint/pkg/commands/internal/migrate/versiontwo"
 )
 
 func toLinterSettings(old versionone.LintersSettings) versiontwo.LintersSettings {

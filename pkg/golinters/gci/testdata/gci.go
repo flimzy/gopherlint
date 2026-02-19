@@ -3,7 +3,7 @@ package testdata
 
 import (
 	"golang.org/x/tools/go/analysis" // want "File is not properly formatted"
-	"github.com/golangci/golangci-lint/v2/pkg/config"
+	"github.com/flimzy/gopherlint/pkg/config"
 	"fmt"
 	"errors"
 	gcicfg "github.com/daixiang0/gci/pkg/config"

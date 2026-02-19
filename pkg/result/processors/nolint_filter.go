@@ -10,11 +10,11 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/golangci/golangci-lint/v2/pkg/golinters/nolintlint"
-	"github.com/golangci/golangci-lint/v2/pkg/lint/linter"
-	"github.com/golangci/golangci-lint/v2/pkg/lint/lintersdb"
-	"github.com/golangci/golangci-lint/v2/pkg/logutils"
-	"github.com/golangci/golangci-lint/v2/pkg/result"
+	"github.com/flimzy/gopherlint/pkg/golinters/nolintlint"
+	"github.com/flimzy/gopherlint/pkg/lint/linter"
+	"github.com/flimzy/gopherlint/pkg/lint/lintersdb"
+	"github.com/flimzy/gopherlint/pkg/logutils"
+	"github.com/flimzy/gopherlint/pkg/result"
 )
 
 var _ Processor = (*NolintFilter)(nil)

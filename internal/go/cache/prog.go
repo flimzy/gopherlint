@@ -21,8 +21,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/golangci/golangci-lint/v2/internal/go/cacheprog"
-	"github.com/golangci/golangci-lint/v2/internal/go/quoted"
+	"github.com/flimzy/gopherlint/internal/go/cacheprog"
+	"github.com/flimzy/gopherlint/internal/go/quoted"
 )
 
 // ProgCache implements Cache via JSON messages over stdin/stdout to a child

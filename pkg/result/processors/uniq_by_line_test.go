@@ -4,7 +4,7 @@ import (
 	"go/token"
 	"testing"
 
-	"github.com/golangci/golangci-lint/v2/pkg/result"
+	"github.com/flimzy/gopherlint/pkg/result"
 )
 
 func newULIssue(file string, line int) *result.Issue {

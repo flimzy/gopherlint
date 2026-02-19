@@ -4,8 +4,8 @@
 package testdata
 
 import (
-	anotherVeryLongImportAliasNameForTest "github.com/golangci/golangci-lint/v2/internal/golinters"
-	veryLongImportAliasNameForTest "github.com/golangci/golangci-lint/v2/internal/golinters"
+	anotherVeryLongImportAliasNameForTest "github.com/flimzy/gopherlint/internal/golinters"
+	veryLongImportAliasNameForTest "github.com/flimzy/gopherlint/internal/golinters"
 )
 
 func LllMultiImport() {

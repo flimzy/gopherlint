@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"slices"
 
-	"github.com/golangci/golangci-lint/v2/scripts/website/types"
+	"github.com/flimzy/gopherlint/scripts/website/types"
 )
 
 func saveCLIHelp(ctx context.Context, dst string) error {

@@ -19,5 +19,5 @@ RUN apk --no-cache add gcc musl-dev git mercurial
 # Set all directories as safe
 RUN git config --global --add safe.directory '*'
 
-COPY $TARGETPLATFORM/golangci-lint /usr/bin/
-CMD ["golangci-lint"]
+COPY $TARGETPLATFORM/gopherlint /usr/bin/
+CMD ["gopherlint"]

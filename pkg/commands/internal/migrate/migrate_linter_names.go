@@ -4,8 +4,8 @@ import (
 	"cmp"
 	"slices"
 
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal/migrate/ptr"
-	"github.com/golangci/golangci-lint/v2/pkg/commands/internal/migrate/versionone"
+	"github.com/flimzy/gopherlint/pkg/commands/internal/migrate/ptr"
+	"github.com/flimzy/gopherlint/pkg/commands/internal/migrate/versionone"
 )
 
 type LinterInfo struct {
