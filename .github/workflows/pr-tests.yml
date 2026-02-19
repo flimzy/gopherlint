@@ -34,10 +34,9 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version: ${{ env.GO_VERSION }}
-      - name: Install gopherlint
+      - name: Build gopherlint
         run: |
-          curl -sSfL https://github.com/flimzy/gopherlint/releases/download/v1.26.0/gopherlint-v1.26.0-linux-amd64.tar.gz \
-            | tar -xz --strip-components=1 -C /usr/local/bin gopherlint-v1.26.0-linux-amd64/gopherlint
+          go build -o /usr/local/bin/gopherlint ./cmd/gopherlint
           ln -s /usr/local/bin/gopherlint /usr/local/bin/golangci-lint
       - name: lint
         uses: golangci/golangci-lint-action@v9.2.0
