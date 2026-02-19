@@ -5,7 +5,8 @@ on:
       - v*
 
 permissions:
-  # Allow the workflow to write attestations.
+  # Allow the workflow to create releases and write attestations.
+  contents: write
   id-token: write
   attestations: write
 
@@ -60,4 +61,8 @@ jobs:
       - uses: actions/attest-build-provenance@v3
         with:
           subject-checksums: ./dist/gopherlint-${{ fromJSON(steps.goreleaser.outputs.metadata).version }}-checksums.txt
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/attest-build-provenance@v3
+        with:
+          subject-checksums: ./dist/digests.txt
           github-token: ${{ secrets.GITHUB_TOKEN }}
