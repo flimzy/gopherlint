@@ -7,6 +7,6 @@ formatters:
     gci:
       sections:
         - standard
-        - prefix(github.com/golangci/golangci-lint,github.com/daixiang0/gci)
+        - prefix(github.com/flimzy/gopherlint,github.com/daixiang0/gci)
         - default
       custom-order: true

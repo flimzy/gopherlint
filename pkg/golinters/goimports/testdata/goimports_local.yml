@@ -6,4 +6,4 @@ formatters:
   settings:
     goimports:
       local-prefixes:
-        - github.com/golangci/golangci-lint
+        - github.com/flimzy/gopherlint
