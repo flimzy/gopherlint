@@ -1,5 +1,5 @@
 name: 🐞 Bug Report
-description: "Create a report to help us improve."
+description: "Report a bug in gopherlint."
 labels: [bug]
 body:
   - type: checkboxes
@@ -7,40 +7,34 @@ body:
     attributes:
       label: Welcome
       options:
-        - label: Yes, I'm using a binary release within 2 latest [releases](https://github.com/golangci/golangci-lint/releases). Only such installations are supported.
+        - label: Yes, I'm using a binary release from [gopherlint releases](https://github.com/flimzy/gopherlint/releases).
           required: true
-        - label: Yes, I've searched similar [issues on GitHub](https://github.com/golangci/golangci-lint/issues) and didn't find any.
+        - label: Yes, I've confirmed this bug is present in `gopherlint` and not in `golangci-lint` v2.10.1. (If it's an upstream bug, please [report it there](https://github.com/golangci/golangci-lint/issues/new/choose).)
+          required: true
+        - label: Yes, I've searched similar [issues on GitHub](https://github.com/flimzy/gopherlint/issues) and didn't find any.
           required: true
         - label: Yes, I've read the `typecheck` section of the [FAQ](https://golangci-lint.run/docs/welcome/faq/#why-do-you-have-typecheck-errors).
           required: true
         - label: Yes, I've tried with the standalone [linter](https://golangci-lint.run/docs/linters/) if available (e.g., gocritic, go vet, etc.).
           required: true
-        - label: I agree to follow this project's [Code of Conduct](https://github.com/golangci/golangci-lint?tab=coc-ov-file)
+        - label: I agree to follow this project's [Code of Conduct](https://github.com/flimzy/gopherlint?tab=coc-ov-file)
           required: true
 
   - type: dropdown
     id: install
     attributes:
-      label: How did you install golangci-lint?
+      label: How did you install gopherlint?
       options:
         - I don't know
-        - Official GitHub Action
-        - Official binary
-        - Brew
-        - MacPorts
-        - Chocolatey
-        - Scoop
-        - Docker
+        - Binary release
+        - golangci-lint GitHub Action (install-mode: none)
         - go install
-        - Tools pattern
-        - go tool
+        - Brew
         - AUR
-        - Nix
         - Deb
         - RPM
-        - Other Linux package manager
+        - Docker
         - Via editor/IDE
-        - asdf/mise-en-place
         - Other
     validations:
       required: true
@@ -56,12 +50,12 @@ body:
   - type: textarea
     id: version
     attributes:
-      label: Version of golangci-lint
+      label: Version of gopherlint
       value: |-
         <details>
 
         ```console
-        $ golangci-lint --version
+        $ gopherlint --version
         # Paste output here
         ```
 
@@ -108,8 +102,8 @@ body:
         <details>
 
         ```console
-        $ golangci-lint cache clean
-        $ golangci-lint run -v
+        $ gopherlint cache clean
+        $ gopherlint run -v
         # paste output here
         ```
 
@@ -121,7 +115,7 @@ body:
     id: code-example
     attributes:
       label: A minimal reproducible example or link to a public repository
-      description: if your problem is related to a private repository, a minimal reproducible example is required.
+      description: If your problem is related to a private repository, a minimal reproducible example is required.
       value: |-
         <details>
 
@@ -140,10 +134,3 @@ body:
       options:
         - label: Yes, I've included all information above (version, config, etc.).
           required: true
-
-  - type: checkboxes
-    id: supporter
-    attributes:
-      label: Supporter
-      options:
-        - label: I am a [sponsor/backer](https://donate.golangci.org) of this project.

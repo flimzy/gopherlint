@@ -1,11 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: 📖 Documentation
-    url: https://golangci-lint.run
-    about: Please take a look to our documentation.
-  - name: ❓ Questions
-    url: https://github.com/golangci/golangci-lint/discussions
-    about: If you have a question, or are looking for advice, please post on our Discussions forum!
-  - name: 💬 Chat on Slack
-    url: https://gophers.slack.com/archives/CS0TBRKPC
-    about: Maybe chatting with the community can help
+    url: https://golangci-lint.run/docs/
+    about: gopherlint is compatible with golangci-lint v2.10.1 — its documentation applies directly.
+  - name: ❓ Questions & Discussions
+    url: https://github.com/flimzy/gopherlint/discussions
+    about: For questions or advice, please use Discussions.

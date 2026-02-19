@@ -4,13 +4,13 @@ set -e
 usage() {
   this=$1
   cat <<EOF
-$this: download go binaries for golangci/golangci-lint
+$this: download go binaries for flimzy/gopherlint
 
 Usage: $this [-b <bindir>] [-d] [<tag>]
   -b sets bindir or installation directory, Defaults to ./bin
   -d turns on debug logging
    <tag> is a tag from
-   https://github.com/golangci/golangci-lint/releases
+   https://github.com/flimzy/gopherlint/releases
    If tag is missing, then the latest will be used.
 
 EOF
@@ -58,48 +58,48 @@ execute() {
 }
 get_binaries() {
   case "$PLATFORM" in
-    darwin/amd64) BINARIES="golangci-lint" ;;
-    darwin/arm64) BINARIES="golangci-lint" ;;
-    darwin/armv6) BINARIES="golangci-lint" ;;
-    darwin/armv7) BINARIES="golangci-lint" ;;
-    darwin/mips64) BINARIES="golangci-lint" ;;
-    darwin/mips64le) BINARIES="golangci-lint" ;;
-    darwin/ppc64le) BINARIES="golangci-lint" ;;
-    darwin/s390x) BINARIES="golangci-lint" ;;
-    freebsd/386) BINARIES="golangci-lint" ;;
-    freebsd/amd64) BINARIES="golangci-lint" ;;
-    freebsd/arm64) BINARIES="golangci-lint" ;;
-    freebsd/armv6) BINARIES="golangci-lint" ;;
-    freebsd/armv7) BINARIES="golangci-lint" ;;
-    freebsd/mips64) BINARIES="golangci-lint" ;;
-    freebsd/mips64le) BINARIES="golangci-lint" ;;
-    freebsd/ppc64le) BINARIES="golangci-lint" ;;
-    freebsd/s390x) BINARIES="golangci-lint" ;;
-    illumos/amd64) BINARIES="golangci-lint" ;;
-    linux/386) BINARIES="golangci-lint" ;;
-    linux/amd64) BINARIES="golangci-lint" ;;
-    linux/arm64) BINARIES="golangci-lint" ;;
-    linux/armv6) BINARIES="golangci-lint" ;;
-    linux/armv7) BINARIES="golangci-lint" ;;
-    linux/mips64) BINARIES="golangci-lint" ;;
-    linux/mips64le) BINARIES="golangci-lint" ;;
-    linux/ppc64le) BINARIES="golangci-lint" ;;
-    linux/s390x) BINARIES="golangci-lint" ;;
-    linux/riscv64) BINARIES="golangci-lint" ;;
-    linux/loong64) BINARIES="golangci-lint" ;;
-    netbsd/386) BINARIES="golangci-lint" ;;
-    netbsd/amd64) BINARIES="golangci-lint" ;;
-    netbsd/armv6) BINARIES="golangci-lint" ;;
-    netbsd/armv7) BINARIES="golangci-lint" ;;
-    windows/386) BINARIES="golangci-lint" ;;
-    windows/amd64) BINARIES="golangci-lint" ;;
-    windows/arm64) BINARIES="golangci-lint" ;;
-    windows/armv6) BINARIES="golangci-lint" ;;
-    windows/armv7) BINARIES="golangci-lint" ;;
-    windows/mips64) BINARIES="golangci-lint" ;;
-    windows/mips64le) BINARIES="golangci-lint" ;;
-    windows/ppc64le) BINARIES="golangci-lint" ;;
-    windows/s390x) BINARIES="golangci-lint" ;;
+    darwin/amd64) BINARIES="gopherlint" ;;
+    darwin/arm64) BINARIES="gopherlint" ;;
+    darwin/armv6) BINARIES="gopherlint" ;;
+    darwin/armv7) BINARIES="gopherlint" ;;
+    darwin/mips64) BINARIES="gopherlint" ;;
+    darwin/mips64le) BINARIES="gopherlint" ;;
+    darwin/ppc64le) BINARIES="gopherlint" ;;
+    darwin/s390x) BINARIES="gopherlint" ;;
+    freebsd/386) BINARIES="gopherlint" ;;
+    freebsd/amd64) BINARIES="gopherlint" ;;
+    freebsd/arm64) BINARIES="gopherlint" ;;
+    freebsd/armv6) BINARIES="gopherlint" ;;
+    freebsd/armv7) BINARIES="gopherlint" ;;
+    freebsd/mips64) BINARIES="gopherlint" ;;
+    freebsd/mips64le) BINARIES="gopherlint" ;;
+    freebsd/ppc64le) BINARIES="gopherlint" ;;
+    freebsd/s390x) BINARIES="gopherlint" ;;
+    illumos/amd64) BINARIES="gopherlint" ;;
+    linux/386) BINARIES="gopherlint" ;;
+    linux/amd64) BINARIES="gopherlint" ;;
+    linux/arm64) BINARIES="gopherlint" ;;
+    linux/armv6) BINARIES="gopherlint" ;;
+    linux/armv7) BINARIES="gopherlint" ;;
+    linux/mips64) BINARIES="gopherlint" ;;
+    linux/mips64le) BINARIES="gopherlint" ;;
+    linux/ppc64le) BINARIES="gopherlint" ;;
+    linux/s390x) BINARIES="gopherlint" ;;
+    linux/riscv64) BINARIES="gopherlint" ;;
+    linux/loong64) BINARIES="gopherlint" ;;
+    netbsd/386) BINARIES="gopherlint" ;;
+    netbsd/amd64) BINARIES="gopherlint" ;;
+    netbsd/armv6) BINARIES="gopherlint" ;;
+    netbsd/armv7) BINARIES="gopherlint" ;;
+    windows/386) BINARIES="gopherlint" ;;
+    windows/amd64) BINARIES="gopherlint" ;;
+    windows/arm64) BINARIES="gopherlint" ;;
+    windows/armv6) BINARIES="gopherlint" ;;
+    windows/armv7) BINARIES="gopherlint" ;;
+    windows/mips64) BINARIES="gopherlint" ;;
+    windows/mips64le) BINARIES="gopherlint" ;;
+    windows/ppc64le) BINARIES="gopherlint" ;;
+    windows/s390x) BINARIES="gopherlint" ;;
     *)
       log_crit "platform $PLATFORM is not supported.  Make sure this script is up-to-date and file request at https://github.com/${PREFIX}/issues/new"
       exit 1
@@ -404,10 +404,10 @@ End of functions from https://github.com/client9/shlib
 ------------------------------------------------------------------------
 EOF
 
-PROJECT_NAME="golangci-lint"
-OWNER=golangci
-REPO="golangci-lint"
-BINARY=golangci-lint
+PROJECT_NAME="gopherlint"
+OWNER=flimzy
+REPO="gopherlint"
+BINARY=gopherlint
 FORMAT=tar.gz
 OS=$(uname_os)
 ARCH=$(uname_arch)

@@ -78,126 +78,23 @@ changelog:
 release:
   skip_upload: false
   github:
-    owner: golangci
-    name: golangci-lint
-  header: |
-    `golangci-lint` is a free and open-source project built by volunteers.
-
-    If you value it, consider supporting us, the [maintainers](https://donate.golangci.org) and [linter authors](https://golangci-lint.run/docs/product/thanks/).
-
-    We appreciate it! :heart:
-
-    For key updates, see the [changelog](https://golangci-lint.run/docs/product/changelog/#{{ .Major }}{{ .Minor }}{{ .Patch }}).
+    owner: flimzy
+    name: gopherlint
 
 source:
   enabled: true
   name_template: '{{ .ProjectName }}-{{ .Version }}-source'
 
-brews:
-  - description: Fast linters runner for Go.
-    homepage: https://golangci.com
-    skip_upload: false
-    repository:
-      owner: golangci
-      name: homebrew-tap
-    commit_author:
-      name: golangci-releaser
-      email: 65486276+golangci-releaser@users.noreply.github.com
-    directory: Formula
-    install: |
-      bin.install "golangci-lint"
-      output = Utils.popen_read("#{bin}/golangci-lint completion bash")
-      (bash_completion/"golangci-lint").write output
-      output = Utils.popen_read("#{bin}/golangci-lint completion zsh")
-      (zsh_completion/"_golangci-lint").write output
-      output = Utils.popen_read("#{bin}/golangci-lint completion fish")
-      (fish_completion/"golangci-lint.fish").write output
-      prefix.install_metafiles
-    test: |
-      system "#{bin}/golangci-lint --version"
-
-## chocolatey is disabled because mono has been removed from GitHub Actions runners due to security and maintenance concerns.
-## The release is done manually and locally, with goreleaser after the release of the other elements.
-## Note(ldez): add documentation about how to do it.
-#chocolateys:
-#  - summary: Fast linters Runner for Go
-#    description: |
-#      {{ .ProjectName }} installer package.
-#      Fast linters Runner for Go.
-#    project_url: https://golangci-lint.run
-#    skip_publish: false
-#    name: golangci-lint
-#    title: Golangci-lint
-#    owners: golangci
-#    authors: golangci
-#    copyright: 2024 GolangCI
-#    url_template: "https://github.com/golangci/golangci-lint/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-#    icon_url: "https://cdn.rawgit.com/golangci/golangci-lint/HEAD/assets/go.png"
-#    license_url: https://github.com/golangci/golangci-lint/blob/HEAD/LICENSE
-#    require_license_acceptance: false
-#    project_source_url: https://github.com/golangci/golangci-lint
-#    package_source_url: https://github.com/golangci/golangci-lint
-#    docs_url: https://golangci-lint.run
-#    bug_tracker_url: https://github.com/golangci/golangci-lint/issues
-#    tags: "go golang lint linter"
-#    release_notes: "https://github.com/golangci/golangci-lint/releases/tag/v{{ .Version }}"
-#    api_key: "{{ .Env.CHOCOLATEY_API_KEY }}"
-#    source_repo: "https://push.chocolatey.org/"
-#    goamd64: v1
-
-aurs:
-  - description: Fast linters runner for Go.
-    skip_upload: false
-    homepage: https://golangci.com
-    provides:
-      - "golangci-lint-bin"
-    maintainers:
-      - "Fernandez Ludovic <lfernandez dot dev at gmail dot com>"
-    license: GPL-3.0
-    private_key: "{{ .Env.AUR_KEY }}"
-    git_url: "ssh://aur@aur.archlinux.org/golangci-lint-bin.git"
-    commit_author:
-      name: golangci-releaser
-      email: 65486276+golangci-releaser@users.noreply.github.com
-    package: |-
-      local x86_64=amd64 i686=386 aarch64=arm64 armv6h=armv6 armv7h=armv7
-      cd "golangci-lint-${pkgver}-linux-${!CARCH}"
-      
-      # bin
-      install -Dm755 "./golangci-lint" "${pkgdir}/usr/bin/golangci-lint"
-
-      # license
-      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/golangci-lint/LICENSE"
-
-      # completions
-      mkdir -p "${pkgdir}/usr/share/bash-completion/completions/"
-      mkdir -p "${pkgdir}/usr/share/zsh/site-functions/"
-      mkdir -p "${pkgdir}/usr/share/fish/vendor_completions.d/"
-      ./golangci-lint completion bash | install -Dm644 /dev/stdin "${pkgdir}/usr/share/bash-completion/completions/golangci-lint"
-      ./golangci-lint completion zsh | install -Dm644 /dev/stdin "${pkgdir}/usr/share/zsh/site-functions/_golangci-lint"
-      ./golangci-lint completion fish | install -Dm644 /dev/stdin "${pkgdir}/usr/share/fish/vendor_completions.d/golangci-lint.fish"
-
-snapcrafts:
-  - summary: Fast linters runner for Go.
-    description: |
-      It runs linters in parallel, uses caching, supports YAML configuration, integrates with all major IDEs, and includes over a hundred linters.
-    disable: false
-    publish: true
-    name_template: "{{ .ProjectName }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-    grade: stable
-    confinement: classic
-    license: GPL-3.0
-    base: core22
 
 nfpms:
   - description: Fast linters Runner for Go
-    homepage: https://golangci-lint.run/
-    id: golangci-lint-nfpms
-    package_name: golangci-lint
+    homepage: https://github.com/flimzy/gopherlint
+    id: gopherlint-nfpms
+    package_name: gopherlint
     file_name_template: "{{ .ProjectName }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-    maintainer: "Golangci-lint Maintainers <65486276+golangci-releaser@users.noreply.github.com>"
+    maintainer: "gopherlint Maintainers"
     license: GPLv3
-    vendor: golangci
+    vendor: flimzy
     section: golang
     formats:
       - deb
@@ -207,64 +104,21 @@ nfpms:
       deb:
         contents:
           - src: LICENSE
-            dst: /usr/share/doc/golangci-lint/copyright
+            dst: /usr/share/doc/gopherlint/copyright
           - src: README.md
-            dst: /usr/share/doc/golangci-lint/README.md
+            dst: /usr/share/doc/gopherlint/README.md
         recommends:
           - golang-go
       rpm:
         contents:
           - src: LICENSE
-            dst: /usr/share/doc/golangci-lint/LICENSE
+            dst: /usr/share/doc/gopherlint/LICENSE
             type: license
           - src: README.md
-            dst: /usr/share/doc/golangci-lint/README.md
+            dst: /usr/share/doc/gopherlint/README.md
             type: readme
         recommends:
           - /usr/bin/go
     rpm:
       group: Development/Tools
 
-dockers_v2:
-  - id: golangci-lint
-    images:
-      - 'golangci/golangci-lint'
-    dockerfile: build/buildx.Dockerfile
-    platforms:
-      - linux/amd64
-      - linux/arm64
-    tags:
-      - 'latest'
-      - '{{ .Tag }}'
-      - 'v{{ .Major }}.{{ .Minor }}'
-    labels:
-      # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
-      'org.opencontainers.image.title': '{{.ProjectName}}'
-      'org.opencontainers.image.description': 'Fast linters Runner for Go'
-      'org.opencontainers.image.source': '{{.GitURL}}'
-      'org.opencontainers.image.url': '{{.GitURL}}'
-      'org.opencontainers.image.documentation': 'https://golangci-lint.run'
-      'org.opencontainers.image.created': '{{.Date}}'
-      'org.opencontainers.image.revision': '{{.FullCommit}}'
-      'org.opencontainers.image.version': '{{.Version}}'
-  - id: golangci-lint-alpine
-    images:
-      - 'golangci/golangci-lint'
-    dockerfile: build/buildx-alpine.Dockerfile
-    platforms:
-      - linux/amd64
-      - linux/arm64
-    tags:
-      - 'latest-alpine'
-      - '{{ .Tag }}-alpine'
-      - 'v{{ .Major }}.{{ .Minor }}-alpine'
-    labels:
-      # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
-      'org.opencontainers.image.title': '{{.ProjectName}}'
-      'org.opencontainers.image.description': 'Fast linters Runner for Go'
-      'org.opencontainers.image.source': '{{.GitURL}}'
-      'org.opencontainers.image.url': '{{.GitURL}}'
-      'org.opencontainers.image.documentation': 'https://golangci-lint.run'
-      'org.opencontainers.image.created': '{{.Date}}'
-      'org.opencontainers.image.revision': '{{.FullCommit}}'
-      'org.opencontainers.image.version': '{{.Version}}'
