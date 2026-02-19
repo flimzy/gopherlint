@@ -1,9 +1,9 @@
 version: 2
 
-project_name: golangci-lint
+project_name: gopherlint
 
 builds:
-  - binary: golangci-lint
+  - binary: gopherlint
     main: ./cmd/golangci-lint/
     flags:
       - -trimpath
