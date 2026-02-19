@@ -62,7 +62,3 @@ jobs:
         with:
           subject-checksums: ./dist/gopherlint-${{ fromJSON(steps.goreleaser.outputs.metadata).version }}-checksums.txt
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/attest-build-provenance@v3
-        with:
-          subject-checksums: ./dist/digests.txt
-          github-token: ${{ secrets.GITHUB_TOKEN }}
