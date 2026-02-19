@@ -36,7 +36,11 @@ Example: `v1.26.0` is the first release targeting Go 1.26, based on `golangci-li
 
 **Binary releases** are available on the [Releases page](https://github.com/flimzy/gopherlint/releases).
 Download the archive for your platform, extract it, and place the `gopherlint` binary somewhere on
-your `PATH`.
+your `PATH`. If your scripts or CI hardcode the name `golangci-lint`, a symlink works:
+
+```sh
+ln -s /usr/local/bin/gopherlint /usr/local/bin/golangci-lint
+```
 
 **`go install`:**
 
