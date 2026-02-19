@@ -4,7 +4,7 @@
 # enable consistent Go 1.12/1.13 GOPROXY behavior.
 export GOPROXY = https://proxy.golang.org
 
-BINARY = golangci-lint
+BINARY = gopherlint
 ifeq ($(OS),Windows_NT)
 	BINARY := $(BINARY).exe
 endif
@@ -15,18 +15,16 @@ build: $(BINARY)
 .PHONY: build
 
 build_race:
-	go build -race -o $(BINARY) ./cmd/golangci-lint
+	go build -race -o $(BINARY) ./cmd/gopherlint
 .PHONY: build_race
 
 clean:
 	rm -f $(BINARY)
 	rm -f test/path
-	rm -f tools/Dracula.itermcolors
-	rm -f tools/svg-term
-	rm -rf tools/node_modules
 .PHONY: clean
 
 # Test
+
 test: export GOLANGCI_LINT_INSTALLED = true
 test: CGO_ENABLED=1
 test: build
@@ -50,20 +48,11 @@ test_integration_fix: build
 	GL_TEST_RUN=1 go test -v ./test -count 1 -run TestFix/$T
 .PHONY: test_integration_fix
 
-# Maintenance
-
-fast_generate: assets/github-action-config.json
-.PHONY: fast_generate
-
-fast_check_generated:
-	$(MAKE) --always-make fast_generate
-	git checkout -- go.mod go.sum # can differ between go1.16 and go1.17
-	git diff --exit-code # check no changes
-
 # Migration
 
 clone_config:
 	go run ./pkg/commands/internal/migrate/cloner/
+.PHONY: clone_config
 
 # Benchmark
 
@@ -88,49 +77,12 @@ hyperfine:
 # Non-PHONY targets (real files)
 
 $(BINARY): FORCE
-	go build -o $@ ./cmd/golangci-lint
-
-assets/github-action-config.json: FORCE $(BINARY)
-	# go run ./scripts/gen_github_action_config/main.go $@
-	cd ./scripts/gen_github_action_config/; go run . ../../$@
+	go build -o $@ ./cmd/gopherlint
 
 go.mod: FORCE
 	go mod tidy
 	go mod verify
 go.sum: go.mod
-
-# Documentation
-
-docs_serve: website_expand_templates
-	@make -C ./docs serve
-.PHONY: docs_serve
-
-docs_clean:
-	@make -C ./docs clean
-.PHONY: docs_clean
-
-docs_build: website_copy_install_sh website_copy_jsonschema website_expand_templates
-	@make -C ./docs build
-.PHONY: docs_build
-
-docs/static/demo.gif: FORCE
-	vhs docs/golangci-lint.tape
-
-website_copy_jsonschema:
-	 go run ./scripts/website/copy_jsonschema/
-.PHONY: website_copy_jsonschema
-
-website_copy_install_sh:
-	 cp install.sh ./docs/static/
-.PHONY: website_copy_install_sh
-
-website_expand_templates:
-	go run ./scripts/website/expand_templates/
-.PHONY: website_expand_templates
-
-website_dump_info:
-	go run ./scripts/website/dump_info/
-.PHONY: website_dump_info
 
 # Functions
 

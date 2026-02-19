@@ -1,7 +1,7 @@
 # This configuration file is not a recommendation.
 #
 # We intentionally use a limited set of linters.
-# This configuration file is used with different version of golangci-lint to avoid regressions:
+# This configuration file is used with different version of gopherlint to avoid regressions:
 # the linters can change between version,
 # their configuration may be not compatible or their reports can be different,
 # and this can break some of our tests.
@@ -110,10 +110,10 @@ linters:
       settings:
         printf:
           funcs:
-            - (github.com/golangci/golangci-lint/v2/pkg/logutils.Log).Infof
-            - (github.com/golangci/golangci-lint/v2/pkg/logutils.Log).Warnf
-            - (github.com/golangci/golangci-lint/v2/pkg/logutils.Log).Errorf
-            - (github.com/golangci/golangci-lint/v2/pkg/logutils.Log).Fatalf
+            - (github.com/flimzy/gopherlint/pkg/logutils.Log).Infof
+            - (github.com/flimzy/gopherlint/pkg/logutils.Log).Warnf
+            - (github.com/flimzy/gopherlint/pkg/logutils.Log).Errorf
+            - (github.com/flimzy/gopherlint/pkg/logutils.Log).Fatalf
       enable:
         - nilness
         - shadow
@@ -213,7 +213,7 @@ formatters:
           replacement: 'any'
     goimports:
       local-prefixes:
-        - github.com/golangci/golangci-lint/v2
+        - github.com/flimzy/gopherlint
   exclusions:
     paths:
       - test/testdata_etc # test files

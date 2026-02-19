@@ -25,8 +25,8 @@ fi
 
 function cleanBinaries() {
   echo "Clean binaries"
-  rm "./golangci-lint-${VERSION}"
-  rm ./golangci-lint
+  rm "./gopherlint-${VERSION}"
+  rm ./gopherlint
 }
 
 trap cleanBinaries EXIT
@@ -35,16 +35,16 @@ trap cleanBinaries EXIT
 
 curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b "./temp-${VERSION}" "${VERSION}"
 
-mv "temp-${VERSION}/golangci-lint" "./golangci-lint-${VERSION}"
+mv "temp-${VERSION}/gopherlint" "./gopherlint-${VERSION}"
 rm -rf "temp-${VERSION}"
 
 ## Build local version
 ## use `go build` to set ldflags (it reduces some performance differences with binaries created by goreleaser)
 
-go build -trimpath -ldflags '-s -w' -o golangci-lint ./cmd/golangci-lint
+go build -trimpath -ldflags '-s -w' -o gopherlint ./cmd/gopherlint
 
 ## Run
 
 hyperfine --warmup 1 \
--n 'local' --prepare './golangci-lint cache clean' "./golangci-lint run --issues-exit-code 0 ---output.text.print-issued-lines=false --enable-only ${LINTER}" \
--n "${VERSION}" --prepare "./golangci-lint-${VERSION} cache clean" "./golangci-lint-${VERSION} run --issues-exit-code 0 ---output.text.print-issued-lines=false --enable-only ${LINTER}"
+-n 'local' --prepare './gopherlint cache clean' "./gopherlint run --issues-exit-code 0 ---output.text.print-issued-lines=false --enable-only ${LINTER}" \
+-n "${VERSION}" --prepare "./gopherlint-${VERSION} cache clean" "./gopherlint-${VERSION} run --issues-exit-code 0 ---output.text.print-issued-lines=false --enable-only ${LINTER}"

@@ -26,8 +26,8 @@ fi
 
 function cleanBinaries() {
   echo "Clean binaries"
-  rm "./golangci-lint-${VERSION_OLD}"
-  rm "./golangci-lint-${VERSION_NEW}"
+  rm "./gopherlint-${VERSION_OLD}"
+  rm "./gopherlint-${VERSION_NEW}"
 }
 
 trap cleanBinaries EXIT
@@ -39,7 +39,7 @@ function install() {
 
   curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b "./temp-${VERSION}" "${VERSION}"
 
-  mv "temp-${VERSION}/golangci-lint" "./golangci-lint-${VERSION}"
+  mv "temp-${VERSION}/gopherlint" "./gopherlint-${VERSION}"
   rm -rf "temp-${VERSION}"
 }
 
@@ -54,5 +54,5 @@ install "${VERSION_NEW}"
 ## Run
 
 hyperfine --warmup 1 \
--n "${VERSION_OLD}" --prepare "./golangci-lint-${VERSION_OLD} cache clean" "./golangci-lint-${VERSION_OLD} run --issues-exit-code 0 --output.text.print-issued-lines=false --enable-only ${LINTER}" \
--n "${VERSION_NEW}" --prepare "./golangci-lint-${VERSION_NEW} cache clean" "./golangci-lint-${VERSION_NEW} run --issues-exit-code 0 --output.text.print-issued-lines=false --enable-only ${LINTER}"
+-n "${VERSION_OLD}" --prepare "./gopherlint-${VERSION_OLD} cache clean" "./gopherlint-${VERSION_OLD} run --issues-exit-code 0 --output.text.print-issued-lines=false --enable-only ${LINTER}" \
+-n "${VERSION_NEW}" --prepare "./gopherlint-${VERSION_NEW} cache clean" "./gopherlint-${VERSION_NEW} run --issues-exit-code 0 --output.text.print-issued-lines=false --enable-only ${LINTER}"

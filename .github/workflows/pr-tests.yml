@@ -27,50 +27,47 @@ jobs:
           git diff --exit-code go.mod
           git diff --exit-code go.sum
 
-  # We already run the current golangci-lint in tests, but here we test
-  # our GitHub action with the latest stable golangci-lint.
-  golangci-lint:
+  gopherlint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
-          # https://github.com/actions/setup-go#supported-version-syntax
-          # ex:
-          # - 1.18beta1 -> 1.18.0-beta.1
-          # - 1.18rc1 -> 1.18.0-rc.1
-          # TODO(ldez) must be changed after the first release of golangci-lint with go1.25
-          # go-version: ${{ env.GO_VERSION }}
-          go-version: '1.25'
+          go-version: ${{ env.GO_VERSION }}
+      - name: Install gopherlint
+        run: |
+          curl -sSfL https://github.com/flimzy/gopherlint/releases/download/v1.26.0/gopherlint-v1.26.0-linux-amd64.tar.gz \
+            | tar -xz --strip-components=1 -C /usr/local/bin gopherlint-v1.26.0-linux-amd64/gopherlint
+          ln -s /usr/local/bin/gopherlint /usr/local/bin/golangci-lint
       - name: lint
         uses: golangci/golangci-lint-action@v9.2.0
         with:
-          version: latest
+          install-mode: none
 
   tests-on-windows:
-    needs: golangci-lint # run after golangci-lint action to not produce duplicated errors
+    needs: gopherlint
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
-          go-version: ${{ env.GO_VERSION }} # test only the latest go version to speed up CI
+          go-version: ${{ env.GO_VERSION }}
       - name: Run tests
         run: make.exe test
 
   tests-on-macos:
-    needs: golangci-lint # run after golangci-lint action to not produce duplicated errors
+    needs: gopherlint
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
-          go-version: ${{ env.GO_VERSION }} # test only the latest go version to speed up CI
+          go-version: ${{ env.GO_VERSION }}
       - name: Run tests
         run: make test
 
   tests-on-unix:
-    needs: golangci-lint # run after golangci-lint action to not produce duplicated errors
+    needs: gopherlint
     strategy:
       matrix:
         os:

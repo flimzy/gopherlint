@@ -27,23 +27,6 @@ jobs:
           git diff --exit-code go.mod
           git diff --exit-code go.sum
 
-  # This check is disabled because of GitHub API instability: 504 Gateway Timeout.
-  # Checks: GitHub action assets
-#  check-generated:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v6
-#        with:
-#          fetch-depth: 0
-#      - uses: actions/setup-go@v6
-#        with:
-#          go-version: ${{ env.GO_VERSION }}
-#      - name: Check generated files are up-to-date
-#        run: make fast_check_generated
-#        env:
-#          # needed for github-action-config.json generation
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   check-local-install-script:
     name: Installation script (local)
     strategy:
@@ -53,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Check installation script
-        run: cat ./install.sh | sh -s -- -d -b "./install-golangci-lint"
+        run: cat ./install.sh | sh -s -- -d -b "./install-gopherlint"
 
   # Note: the command `run` is tested by the other workflows (`make test`).
   check-commands:
@@ -63,45 +46,45 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version: ${{ env.GO_VERSION }}
-      - name: Build golangci-lint
+      - name: Build gopherlint
         run: make build
 
-      - run: ./golangci-lint
+      - run: ./gopherlint
 
-      - run: ./golangci-lint fmt
-      - run: ./golangci-lint fmt --diff
-      - run: cat cmd/golangci-lint/main.go | ./golangci-lint fmt --stdin
+      - run: ./gopherlint fmt
+      - run: ./gopherlint fmt --diff
+      - run: cat cmd/gopherlint/main.go | ./gopherlint fmt --stdin
 
-      - run: ./golangci-lint cache
-      - run: ./golangci-lint cache status
-      - run: ./golangci-lint cache clean
+      - run: ./gopherlint cache
+      - run: ./gopherlint cache status
+      - run: ./gopherlint cache clean
 
-      - run: ./golangci-lint completion
-      - run: ./golangci-lint completion bash
-      - run: ./golangci-lint completion bash --no-descriptions
-      - run: ./golangci-lint completion zsh
-      - run: ./golangci-lint completion zsh --no-descriptions
-      - run: ./golangci-lint completion fish
-      - run: ./golangci-lint completion fish --no-descriptions
-      - run: ./golangci-lint completion powershell
-      - run: ./golangci-lint completion powershell --no-descriptions
+      - run: ./gopherlint completion
+      - run: ./gopherlint completion bash
+      - run: ./gopherlint completion bash --no-descriptions
+      - run: ./gopherlint completion zsh
+      - run: ./gopherlint completion zsh --no-descriptions
+      - run: ./gopherlint completion fish
+      - run: ./gopherlint completion fish --no-descriptions
+      - run: ./gopherlint completion powershell
+      - run: ./gopherlint completion powershell --no-descriptions
 
-      - run: ./golangci-lint config
-      - run: ./golangci-lint config path
-      - run: ./golangci-lint config path --json
-      - run: ./golangci-lint config verify --schema jsonschema/golangci.next.jsonschema.json
+      - run: ./gopherlint config
+      - run: ./gopherlint config path
+      - run: ./gopherlint config path --json
+      - run: ./gopherlint config verify --schema jsonschema/golangci.next.jsonschema.json
 
-      - run: ./golangci-lint help
-      - run: ./golangci-lint help linters
-      - run: ./golangci-lint help linters --json
-      - run: ./golangci-lint help formatters
-      - run: ./golangci-lint help formatters --json
-      - run: ./golangci-lint linters
-      - run: ./golangci-lint linters --json
-      - run: ./golangci-lint formatters
-      - run: ./golangci-lint formatters --json
-      - run: ./golangci-lint version
-      - run: ./golangci-lint version --short
-      - run: ./golangci-lint version --debug
-      - run: ./golangci-lint version --json
-      - run: ./golangci-lint version --json --debug
+      - run: ./gopherlint help
+      - run: ./gopherlint help linters
+      - run: ./gopherlint help linters --json
+      - run: ./gopherlint help formatters
+      - run: ./gopherlint help formatters --json
+      - run: ./gopherlint linters
+      - run: ./gopherlint linters --json
+      - run: ./gopherlint formatters
+      - run: ./gopherlint formatters --json
+      - run: ./gopherlint version
+      - run: ./gopherlint version --short
+      - run: ./gopherlint version --debug
+      - run: ./gopherlint version --json
+      - run: ./gopherlint version --json --debug

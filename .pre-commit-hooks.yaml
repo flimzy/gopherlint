@@ -1,31 +1,31 @@
-- id: golangci-lint
-  name: golangci-lint
+- id: gopherlint
+  name: gopherlint
   description: Fast linters runner for Go. Note that only modified files are linted, so linters like 'unused' that need to scan all files won't work as expected.
-  entry: golangci-lint run --new-from-rev HEAD --fix
+  entry: gopherlint run --new-from-rev HEAD --fix
   types: [go]
   language: golang
   require_serial: true
   pass_filenames: false
-- id: golangci-lint-full
-  name: golangci-lint-full
+- id: gopherlint-full
+  name: gopherlint-full
   description: Fast linters runner for Go. Runs on all files in the module. Use this hook if you use pre-commit in CI.
-  entry: golangci-lint run --fix
+  entry: gopherlint run --fix
   types: [go]
   language: golang
   require_serial: true
   pass_filenames: false
-- id: golangci-lint-fmt
-  name: golangci-lint-fmt
+- id: gopherlint-fmt
+  name: gopherlint-fmt
   description: Fast linters runner for Go. Formats all files in the repo.
-  entry: golangci-lint fmt
+  entry: gopherlint fmt
   types: [go]
   language: golang
   require_serial: true
   pass_filenames: false
-- id: golangci-lint-config-verify
-  name: golangci-lint-config-verify
+- id: gopherlint-config-verify
+  name: gopherlint-config-verify
   description: Verifies the configuration file
-  entry: golangci-lint config verify
+  entry: gopherlint config verify
   files: '\.golangci\.(?:yml|yaml|toml|json)'
   language: golang
   pass_filenames: false
