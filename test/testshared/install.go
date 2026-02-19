@@ -51,7 +51,7 @@ func InstallGolangciLint(tb testing.TB) string {
 			cmd := exec.CommandContext(tb.Context(), "make", "-C", parentPath, "build")
 
 			output, err := cmd.CombinedOutput()
-			require.NoError(tb, err, "can't install golangci-lint %s", string(output))
+			require.NoError(tb, err, "can't install gopherlint %s", string(output))
 
 			built = true
 		}

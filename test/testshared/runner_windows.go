@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-const binaryName = "golangci-lint.exe"
+const binaryName = "gopherlint.exe"
 
 // SkipOnWindows skip test on Windows.
 func SkipOnWindows(tb testing.TB) {

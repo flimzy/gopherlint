@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-const binaryName = "golangci-lint"
+const binaryName = "gopherlint"
 
 // SkipOnWindows it's a noop function on Unix.
 func SkipOnWindows(_ testing.TB) {}
