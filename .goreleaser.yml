@@ -4,7 +4,7 @@ project_name: gopherlint
 
 builds:
   - binary: gopherlint
-    main: ./cmd/golangci-lint/
+    main: ./cmd/gopherlint/
     flags:
       - -trimpath
     ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{.Date}}

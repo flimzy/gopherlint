@@ -34,14 +34,15 @@ Example: `v1.26.0` is the first release targeting Go 1.26, based on `golangci-li
 
 ## Installation
 
-Binary releases are available on the [Releases page](https://github.com/flimzy/gopherlint/releases).
-
-> **Note:** `go install` is not supported yet. The module path has not been updated from the
-> upstream (`github.com/golangci/golangci-lint/v2`), so `go install
-> github.com/flimzy/gopherlint@...` will not work. Use the binary releases.
-
+**Binary releases** are available on the [Releases page](https://github.com/flimzy/gopherlint/releases).
 Download the archive for your platform, extract it, and place the `gopherlint` binary somewhere on
 your `PATH`.
+
+**`go install`:**
+
+```sh
+go install github.com/flimzy/gopherlint/cmd/gopherlint@v1.26.0
+```
 
 ## Usage
 
