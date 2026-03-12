@@ -34,19 +34,46 @@ Example: `v1.26.0` is the first release targeting Go 1.26, based on `golangci-li
 
 ## Installation
 
-**Binary releases** are available on the [Releases page](https://github.com/flimzy/gopherlint/releases).
+### Install script (recommended)
+
+```sh
+curl -sSfL https://raw.githubusercontent.com/flimzy/gopherlint/main/install.sh | sh -s -- -b /usr/local/bin
+```
+
+To install a specific version:
+
+```sh
+curl -sSfL https://raw.githubusercontent.com/flimzy/gopherlint/main/install.sh | sh -s -- -b /usr/local/bin v1.26.1
+```
+
+### Binary releases
+
+Pre-built binaries are available on the [Releases page](https://github.com/flimzy/gopherlint/releases).
 Download the archive for your platform, extract it, and place the `gopherlint` binary somewhere on
-your `PATH`. If your scripts or CI hardcode the name `golangci-lint`, a symlink works:
+your `PATH`.
+
+### Build from source
+
+```sh
+git clone https://github.com/flimzy/gopherlint.git
+cd gopherlint
+go build -o /usr/local/bin/gopherlint ./cmd/gopherlint
+```
+
+### Symlink for compatibility
+
+If your scripts or CI hardcode the name `golangci-lint`, a symlink works:
 
 ```sh
 ln -s /usr/local/bin/gopherlint /usr/local/bin/golangci-lint
 ```
 
-**`go install`:**
+### Why not `go install`?
 
-```sh
-go install github.com/flimzy/gopherlint/cmd/gopherlint@v1.26.0
-```
+`go install module@version` does not support modules with `replace` directives in `go.mod`.
+`gopherlint` vendors and patches upstream dependencies (like `gosec`) to backport bugfixes, which
+requires `replace` directives. This is fundamental to how the project works, so `go install` will
+not be supported. Use the install script or build from source instead.
 
 ## Usage
 

@@ -78,12 +78,11 @@ func createSchemaURL(flags *pflag.FlagSet, buildInfo BuildInfo) (string, error) 
 				return "", err
 			}
 
-			return fmt.Sprintf("https://raw.githubusercontent.com/golangci/golangci-lint/%s/jsonschema/golangci.next.jsonschema.json",
+			return fmt.Sprintf("https://raw.githubusercontent.com/flimzy/gopherlint/%s/jsonschema/golangci.next.jsonschema.json",
 				commit), nil
 		}
 
-		return fmt.Sprintf("https://golangci-lint.run/jsonschema/golangci.v%d.%d.jsonschema.json",
-			version.Segments()[0], version.Segments()[1]), nil
+		return "https://golangci-lint.run/jsonschema/golangci.v2.10.jsonschema.json", nil
 
 	case buildInfo.Commit != "" && buildInfo.Commit != "?":
 		commit, err := extractCommitHash(buildInfo)
@@ -91,7 +90,7 @@ func createSchemaURL(flags *pflag.FlagSet, buildInfo BuildInfo) (string, error) 
 			return "", err
 		}
 
-		return fmt.Sprintf("https://raw.githubusercontent.com/golangci/golangci-lint/%s/jsonschema/golangci.next.jsonschema.json",
+		return fmt.Sprintf("https://raw.githubusercontent.com/flimzy/gopherlint/%s/jsonschema/golangci.next.jsonschema.json",
 			commit), nil
 
 	default:

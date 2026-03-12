@@ -35,14 +35,14 @@ func Test_createSchemaURL(t *testing.T) {
 				Version: "v1.0.0",
 				Commit:  "cd8b11773c6c1f595e8eb98c0d4310af20ae20df",
 			},
-			expected: "https://golangci-lint.run/jsonschema/golangci.v1.0.jsonschema.json",
+			expected: "https://golangci-lint.run/jsonschema/golangci.v2.10.jsonschema.json",
 		},
 		{
 			desc: "commit only",
 			info: BuildInfo{
 				Commit: "cd8b11773c6c1f595e8eb98c0d4310af20ae20df",
 			},
-			expected: "https://raw.githubusercontent.com/golangci/golangci-lint/cd8b11773c6c1f595e8eb98c0d4310af20ae20df/jsonschema/golangci.next.jsonschema.json",
+			expected: "https://raw.githubusercontent.com/flimzy/gopherlint/cd8b11773c6c1f595e8eb98c0d4310af20ae20df/jsonschema/golangci.next.jsonschema.json",
 		},
 		{
 			desc: "version devel and commit",
@@ -50,7 +50,7 @@ func Test_createSchemaURL(t *testing.T) {
 				Version: "(devel)",
 				Commit:  "cd8b11773c6c1f595e8eb98c0d4310af20ae20df",
 			},
-			expected: "https://raw.githubusercontent.com/golangci/golangci-lint/cd8b11773c6c1f595e8eb98c0d4310af20ae20df/jsonschema/golangci.next.jsonschema.json",
+			expected: "https://raw.githubusercontent.com/flimzy/gopherlint/cd8b11773c6c1f595e8eb98c0d4310af20ae20df/jsonschema/golangci.next.jsonschema.json",
 		},
 		{
 			desc: "composite commit info",
@@ -58,7 +58,7 @@ func Test_createSchemaURL(t *testing.T) {
 				Version: "",
 				Commit:  `(cd8b11773c6c1f595e8eb98c0d4310af20ae20df, modified: "false", mod sum: "123")`,
 			},
-			expected: "https://raw.githubusercontent.com/golangci/golangci-lint/cd8b11773c6c1f595e8eb98c0d4310af20ae20df/jsonschema/golangci.next.jsonschema.json",
+			expected: "https://raw.githubusercontent.com/flimzy/gopherlint/cd8b11773c6c1f595e8eb98c0d4310af20ae20df/jsonschema/golangci.next.jsonschema.json",
 		},
 		{
 			desc: "v0 version",
@@ -66,7 +66,7 @@ func Test_createSchemaURL(t *testing.T) {
 				Version: "v0.0.0-20250213211019-0a603e49e5e9",
 				Commit:  `(0a603e49e5e9870f5f9f2035bcbe42cd9620a9d5, modified: "false", mod sum: "123")`,
 			},
-			expected: "https://raw.githubusercontent.com/golangci/golangci-lint/0a603e49e5e9870f5f9f2035bcbe42cd9620a9d5/jsonschema/golangci.next.jsonschema.json",
+			expected: "https://raw.githubusercontent.com/flimzy/gopherlint/0a603e49e5e9870f5f9f2035bcbe42cd9620a9d5/jsonschema/golangci.next.jsonschema.json",
 		},
 		{
 			desc: "dirty",
@@ -74,7 +74,7 @@ func Test_createSchemaURL(t *testing.T) {
 				Version: "v1.64.6-0.20250225205237-3eecab1ebde9+dirty",
 				Commit:  `(3eecab1ebde9, modified: "false", mod sum: "123")`,
 			},
-			expected: "https://golangci-lint.run/jsonschema/golangci.v1.64.jsonschema.json",
+			expected: "https://golangci-lint.run/jsonschema/golangci.v2.10.jsonschema.json",
 		},
 	}
 
