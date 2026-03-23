@@ -235,3 +235,5 @@ require (
 )
 
 replace github.com/securego/gosec/v2 => ./vend/gosec
+
+replace github.com/ryanrolds/sqlclosecheck => ./vend/sqlclosecheck
