@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.26.2 (unreleased)
+## v1.26.2 (2026-03-23)
 
 ### Bug Fixes (backported)
 
