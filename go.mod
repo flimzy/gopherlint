@@ -49,7 +49,7 @@ require (
 	github.com/curioswitch/go-reassign v0.3.0
 	github.com/daixiang0/gci v0.13.7
 	github.com/denis-tingaikin/go-header v0.5.0
-	github.com/fatih/color v1.18.0
+	github.com/fatih/color v1.19.0
 	github.com/firefart/nonamedreturns v1.0.6
 	github.com/fzipp/gocyclo v0.6.0
 	github.com/ghostiam/protogetter v0.3.20
@@ -147,7 +147,7 @@ require (
 	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b
 	golang.org/x/mod v0.33.0
 	golang.org/x/sync v0.19.0
-	golang.org/x/sys v0.41.0
+	golang.org/x/sys v0.42.0
 	golang.org/x/tools v0.42.0
 	honnef.co/go/tools v0.7.0
 	mvdan.cc/gofumpt v0.9.2
@@ -235,3 +235,5 @@ require (
 )
 
 replace github.com/securego/gosec/v2 => ./vend/gosec
+
+replace github.com/ryanrolds/sqlclosecheck => ./vend/sqlclosecheck
