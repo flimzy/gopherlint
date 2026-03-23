@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.26.2 (unreleased)
+
+### Bug Fixes (backported)
+
+- **fatih/color**: Fix nil os.Stdout panic on Windows services, fix escape code byte counts in Fprint/Fprintf ([v1.19.0](https://github.com/fatih/color/releases/tag/v1.19.0))
+
 ## v1.26.1 (2026-03-12)
 
 ### Bug Fixes (backported)
