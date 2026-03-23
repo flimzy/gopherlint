@@ -5,6 +5,7 @@
 ### Bug Fixes (backported)
 
 - **fatih/color**: Fix nil os.Stdout panic on Windows services, fix escape code byte counts in Fprint/Fprintf ([v1.19.0](https://github.com/fatih/color/releases/tag/v1.19.0))
+- **sqlclosecheck**: Fix nil pointer panic when Referrers() returns nil ([golangci-lint#6439](https://github.com/golangci/golangci-lint/issues/6439))
 
 ## v1.26.1 (2026-03-12)
 

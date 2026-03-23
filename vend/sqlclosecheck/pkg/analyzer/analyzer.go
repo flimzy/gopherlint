@@ -75,6 +75,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 				// For each found target check if they are closed and deferred
 				for _, targetValue := range targetValues {
 					refs := (*targetValue.value).Referrers()
+					if refs == nil {
+						continue
+					}
 					isClosed := checkClosed(refs, targetTypes)
 					if !isClosed {
 						pass.Reportf((targetValue.instr).Pos(), "Rows/Stmt/NamedStmt was not closed")
@@ -191,6 +194,9 @@ func getTargetTypesValues(b *ssa.BasicBlock, i int, targetTypes []any) []targetV
 				continue
 			}
 
+			if call.Referrers() == nil {
+				continue
+			}
 			for _, cRef := range *call.Referrers() {
 				switch instr := cRef.(type) {
 				case *ssa.Call:
@@ -284,7 +290,7 @@ func getAction(instr ssa.Instruction, targetTypes []any) action {
 			return actionReturned
 		}
 
-		if len(*instr.Addr.Referrers()) == 0 {
+		if instr.Addr.Referrers() == nil || len(*instr.Addr.Referrers()) == 0 {
 			return actionNoOp
 		}
 
@@ -350,7 +356,7 @@ func checkDeferred(pass *analysis.Pass, instrs *[]ssa.Instruction, targetTypes [
 				return
 			}
 		case *ssa.Store:
-			if len(*instr.Addr.Referrers()) == 0 {
+			if instr.Addr.Referrers() == nil || len(*instr.Addr.Referrers()) == 0 {
 				return
 			}
 
