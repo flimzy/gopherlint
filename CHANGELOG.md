@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.26.3 (2026-05-04)
+
+### Bug Fixes (backported)
+
+- **gopherlint custom**: Filter env vars when cloning the repository in custom build ([golangci-lint#6515](https://github.com/golangci/golangci-lint/pull/6515))
+- **godot**: Correct auto-fix replacement offset for inline comments ([v1.5.5](https://github.com/tetafro/godot/releases/tag/v1.5.5))
+- **godot**: Prevent panic when slicing source lines on files with `//line` directives ([v1.5.6](https://github.com/tetafro/godot/releases/tag/v1.5.6))
+- **sqlclosecheck**: Recognize `Close()` called via interface method dispatch on pgx target types ([golangci/sqlclosecheck#1b5fadb](https://github.com/golangci/sqlclosecheck/commit/1b5fadbb85650600cf4e972692888780f5344148))
+- **gosec**: Fix G115 false positives for guarded int64-to-byte conversions ([securego/gosec#1578](https://github.com/securego/gosec/pull/1578))
+- **gosec**: Per-package rule instantiation eliminates concurrent map crash in G304 ([securego/gosec#1589](https://github.com/securego/gosec/pull/1589))
+- **gosec**: Skip SSA analysis on ill-typed packages to prevent panic ([securego/gosec#1607](https://github.com/securego/gosec/pull/1607))
+
 ## v1.26.2 (2026-03-23)
 
 ### Bug Fixes (backported)
