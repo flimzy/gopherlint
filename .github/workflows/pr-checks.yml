@@ -38,6 +38,10 @@ jobs:
           persist-credentials: false
       - uses: zizmorcore/zizmor-action@3dc1ecc9bcb9e94e9b2c709687979e1298497054 # v0.6.2
         with:
+          # Scope to our own workflows; vend/ carries full clones of upstream
+          # forks (with their own .github/workflows) for local patching only —
+          # those workflows never run and aren't ours to harden.
+          inputs: .github/workflows
           advanced-security: false
           annotations: true
 
