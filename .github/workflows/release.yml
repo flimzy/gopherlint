@@ -5,8 +5,8 @@ on:
       - v*
 
 permissions:
-  # Allow the workflow to create releases and write attestations.
   contents: write
+  # Allow the workflow to write attestations.
   id-token: write
   attestations: write
 
@@ -18,7 +18,7 @@ jobs:
       # ex:
       # - 1.18beta1 -> 1.18.0-beta.1
       # - 1.18rc1 -> 1.18.0-rc.1
-      GO_VERSION: '1.26'
+      GO_VERSION: '1.27.0'
     steps:
       # temporary workaround for an error in free disk space action
       # https://github.com/jlumbroso/free-disk-space/issues/14
@@ -29,7 +29,7 @@ jobs:
 
       # https://github.com/marketplace/actions/free-disk-space-ubuntu
       - name: Free Disk Space
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # main
         with:
           # this might remove tools that are actually needed
           tool-cache: false
@@ -42,23 +42,25 @@ jobs:
           docker-images: true
           swap-storage: false
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/setup-go@v6
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
+          cache: false
 
       - name: Create release
         id: goreleaser
-        uses: goreleaser/goreleaser-action@v6
+        uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
         with:
           version: latest
           args: release --clean --timeout=90m
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/attest-build-provenance@v3
+      - uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
           subject-checksums: ./dist/gopherlint-${{ fromJSON(steps.goreleaser.outputs.metadata).version }}-checksums.txt
           github-token: ${{ secrets.GITHUB_TOKEN }}

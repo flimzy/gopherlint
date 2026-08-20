@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.27.0 (2026-08-20)
+
+Rebased onto `golangci-lint` v2.13.1, targeting Go 1.27. This pulls forward everything from
+v2.11.0 through v2.13.1, including go1.27 support, new linters (`clickhouselint`, `exhaustruct_v5`,
+`gomodguard_v2`), and the switch to an embedded JSON schema for `config verify`.
+
+### Notes
+
+- **config verify**: Upstream now embeds the JSON schema in the binary instead of fetching it by
+  URL, which made gopherlint's custom schema-URL patch (from v1.26.0) obsolete; it has been dropped.
+- **sqlclosecheck**: The vendored fork was rebased onto upstream v0.6.0 (new `NewDeferOnlyAnalyzer`
+  API) with gopherlint's two local fixes reapplied: the nil-`Referrers()` guard and the pgx
+  interface-method-dispatch fix for `Close()` detection.
+
 ## v1.26.3 (2026-05-04)
 
 ### Bug Fixes (backported)

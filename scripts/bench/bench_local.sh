@@ -46,5 +46,5 @@ go build -trimpath -ldflags '-s -w' -o gopherlint ./cmd/gopherlint
 ## Run
 
 hyperfine --warmup 1 \
--n 'local' --prepare './gopherlint cache clean' "./gopherlint run --issues-exit-code 0 ---output.text.print-issued-lines=false --enable-only ${LINTER}" \
--n "${VERSION}" --prepare "./gopherlint-${VERSION} cache clean" "./gopherlint-${VERSION} run --issues-exit-code 0 ---output.text.print-issued-lines=false --enable-only ${LINTER}"
+-n 'local' --prepare './gopherlint cache clean' "./gopherlint run --issues-exit-code 0 --output.text.print-issued-lines=false --enable-only ${LINTER}" \
+-n "${VERSION}" --prepare "./gopherlint-${VERSION} cache clean" "./gopherlint-${VERSION} run --issues-exit-code 0 --output.text.print-issued-lines=false --enable-only ${LINTER}"

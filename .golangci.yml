@@ -75,6 +75,7 @@ linters:
     goconst:
       min-len: 2
       min-occurrences: 3
+      ignore-tests: true
     gocritic:
       enabled-tags:
         - diagnostic
@@ -155,6 +156,35 @@ linters:
           - dupl
           - mnd
           - lll
+          - goconst
+
+      - path: pkg/commands/internal/migrate/.+
+        linters:
+          - goconst
+
+      - path: scripts/website/dump_info/thanks.go
+        linters:
+          - goconst
+
+      - path: pkg/result/processors/.+
+        text: "string `(go\\.mod|errcheck|revive|gosec|error|high)` has \\d+ occurrences, make it a constant"
+        linters:
+          - goconst
+
+      - path: pkg/commands/.+
+        text: "string `(\\(devel\\)|unknown)` has \\d+ occurrences, make it a constant"
+        linters:
+          - goconst
+
+      - path: pkg/printers/.+
+        text: "string `(golangci-lint|warning)` has \\d+ occurrences, make it a constant"
+        linters:
+          - goconst
+
+      - path: pkg/config/output(_test)?.go
+        text: "string `(file|linter|severity)` has \\d+ occurrences, make it a constant"
+        linters:
+          - goconst
 
       # Based on existing code, the modifications should be limited to make maintenance easier.
       - path: pkg/golinters/unused/unused.go
@@ -194,11 +224,30 @@ linters:
 
       # Deprecated linters
       - path: pkg/lint/lintersdb/builder_linter.go
-        text: "SA1019: wsl.NewV4 is deprecated: use NewV5 instead."
+        text: "SA1019: (.*)wsl.NewV4 is deprecated: use NewV5 instead."
         linters:
           - staticcheck
       - path: pkg/golinters/wsl/wsl.go
-        text: "SA1019: config.WSLv4Settings is deprecated: use WSLv5Settings instead."
+        text: "SA1019: (.*)config.WSLv4Settings is deprecated: use WSLv5Settings instead."
+        linters:
+          - staticcheck
+      - path: pkg/golinters/gomodguard/gomodguard.go
+        text: "SA1019: (.*)config.GoModGuardSettings is deprecated: use GoModGuardv2Settings instead."
+        linters:
+          - staticcheck
+      - path: pkg/golinters/exhaustruct/exhaustruct.go
+        text: "SA1019: (.*)config.ExhaustructSettings is deprecated: use ExhaustructV5Settings instead."
+        linters:
+          - staticcheck
+      - path: pkg/goformatters/gofumpt/gofumpt.go
+        text: "SA1019: (.*).ExtraRules is deprecated: use (.*)Extra.? instead."
+        linters:
+          - staticcheck
+      - path: pkg/golinters/gomodguard/
+        linters:
+          - dupl
+      - path: pkg/golinters/goconst/goconst.go
+        text: "SA1019: (.*).IgnoreCalls is deprecated: use ExcludeTypes instead."
         linters:
           - staticcheck
 

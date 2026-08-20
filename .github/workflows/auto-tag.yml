@@ -13,10 +13,11 @@ jobs:
   auto-tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           ssh-key: ${{ secrets.DEPLOY_KEY }}
+          persist-credentials: true
 
       - name: Extract version from CHANGELOG.md
         id: version
@@ -26,8 +27,10 @@ jobs:
 
       - name: Check if tag exists
         id: check
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          if git rev-parse "refs/tags/${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+          if git rev-parse "refs/tags/${VERSION}" >/dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -35,6 +38,8 @@ jobs:
 
       - name: Create and push tag
         if: steps.check.outputs.exists == 'false'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          git tag "${{ steps.version.outputs.version }}"
-          git push origin "${{ steps.version.outputs.version }}"
+          git tag "${VERSION}"
+          git push origin "${VERSION}"

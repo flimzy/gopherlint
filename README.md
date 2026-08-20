@@ -16,7 +16,7 @@ frozen for the life of a major version.
 
 ## Based on
 
-`golangci-lint` v2.10.1
+`golangci-lint` v2.13.1
 
 ## Versioning
 
@@ -27,10 +27,10 @@ v1.GOMAJOR.PATCH
 | Segment    | Meaning                                                    |
 |------------|------------------------------------------------------------|
 | `1`        | Fork major version — stable, no breaking changes           |
-| `GOMAJOR`  | Major Go version this release targets (e.g. `26` = Go 1.26) |
+| `GOMAJOR`  | Major Go version this release targets (e.g. `27` = Go 1.27) |
 | `PATCH`    | Bugfix increment                                           |
 
-Example: `v1.26.0` is the first release targeting Go 1.26, based on `golangci-lint` v2.10.1.
+Example: `v1.27.0` is the first release targeting Go 1.27, based on `golangci-lint` v2.13.1.
 
 ## Installation
 
@@ -43,7 +43,7 @@ curl -sSfL https://raw.githubusercontent.com/flimzy/gopherlint/main/install.sh |
 To install a specific version:
 
 ```sh
-curl -sSfL https://raw.githubusercontent.com/flimzy/gopherlint/main/install.sh | sh -s -- -b /usr/local/bin v1.26.1
+curl -sSfL https://raw.githubusercontent.com/flimzy/gopherlint/main/install.sh | sh -s -- -b /usr/local/bin v1.27.0
 ```
 
 ### Binary releases
@@ -80,7 +80,7 @@ not be supported. Use the install script or build from source instead.
 `gopherlint` is a drop-in replacement for `golangci-lint`. It accepts the same flags and the same
 configuration format. The only difference is the binary name. Refer to the
 [`golangci-lint` documentation](https://golangci-lint.run/docs/) — it applies directly to
-`gopherlint` (based on v2.10.1).
+`gopherlint` (based on v2.13.1).
 
 ```sh
 # Same config, same flags — just a different binary name
@@ -101,8 +101,8 @@ available.
 ```yaml
 - name: Install gopherlint
   run: |
-    curl -sSfL https://github.com/flimzy/gopherlint/releases/download/v1.26.0/gopherlint-v1.26.0-linux-amd64.tar.gz \
-      | tar -xz --strip-components=1 -C /usr/local/bin gopherlint-v1.26.0-linux-amd64/gopherlint
+    curl -sSfL https://github.com/flimzy/gopherlint/releases/download/v1.27.0/gopherlint-v1.27.0-linux-amd64.tar.gz \
+      | tar -xz --strip-components=1 -C /usr/local/bin gopherlint-v1.27.0-linux-amd64/gopherlint
 
 - name: Run gopherlint
   run: gopherlint run ./...
@@ -116,8 +116,8 @@ it. This preserves inline PR annotations.
 ```yaml
 - name: Install gopherlint
   run: |
-    curl -sSfL https://github.com/flimzy/gopherlint/releases/download/v1.26.0/gopherlint-v1.26.0-linux-amd64.tar.gz \
-      | tar -xz --strip-components=1 -C /usr/local/bin gopherlint-v1.26.0-linux-amd64/gopherlint
+    curl -sSfL https://github.com/flimzy/gopherlint/releases/download/v1.27.0/gopherlint-v1.27.0-linux-amd64.tar.gz \
+      | tar -xz --strip-components=1 -C /usr/local/bin gopherlint-v1.27.0-linux-amd64/gopherlint
     ln -s /usr/local/bin/gopherlint /usr/local/bin/golangci-lint
 
 - name: Run gopherlint via golangci-lint action
