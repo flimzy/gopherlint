@@ -11,7 +11,7 @@ version: "2"
 linters:
   # Default set of linters.
   # The value can be:
-  # - `standard`: https://golangci-lint.run/docs/linters/#enabled-by-default
+  # - `standard`: the "Default" linters https://golangci-lint.run/docs/linters/#all-linters
   # - `all`: enables all linters by default.
   # - `none`: disables all linters by default.
   # - `fast`: enables only linters considered as "fast" (`gopherlint help linters --json | jq '[ .[] | select(.fast==true) ] | map(.name)'`).
@@ -26,6 +26,7 @@ linters:
     - bidichk
     - bodyclose
     - canonicalheader
+    - clickhouselint
     - containedctx
     - contextcheck
     - copyloopvar
@@ -44,6 +45,7 @@ linters:
     - errorlint
     - exhaustive
     - exhaustruct
+    - exhaustruct_v5
     - exptostd
     - fatcontext
     - forbidigo
@@ -65,6 +67,7 @@ linters:
     - goheader
     - gomoddirectives
     - gomodguard
+    - gomodguard_v2
     - goprintffuncname
     - gosec
     - gosmopolitan
@@ -141,6 +144,7 @@ linters:
     - bidichk
     - bodyclose
     - canonicalheader
+    - clickhouselint
     - containedctx
     - contextcheck
     - copyloopvar
@@ -159,6 +163,7 @@ linters:
     - errorlint
     - exhaustive
     - exhaustruct
+    - exhaustruct_v5
     - exptostd
     - fatcontext
     - forbidigo
@@ -180,6 +185,7 @@ linters:
     - goheader
     - gomoddirectives
     - gomodguard
+    - gomodguard_v2
     - goprintffuncname
     - gosec
     - gosmopolitan
@@ -275,6 +281,12 @@ linters:
       right-to-left-isolate: false
       first-strong-isolate: false
       pop-directional-isolate: false
+
+    bodyclose:
+      # Check that the response body is consumed.
+      # This has false positives.
+      # Default: false
+      check-consumption: true
 
     copyloopvar:
       # Check all assigning the loop variable to another variable.
@@ -401,6 +413,9 @@ linters:
       # Checks only comments, skip strings.
       # Default: false
       comments-only: true
+      # Skip raw string literals (backtick-delimited) from duplicate word checking.
+      # Default: false
+      skip-raw-strings: true
 
     embeddedstructfieldcheck:
       # Checks that there is an empty space between the embedded fields and regular fields.
@@ -416,7 +431,7 @@ linters:
       # Default: false
       check-type-assertions: true
 
-      # report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`.
+      # Report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`.
       # Such cases aren't reported by default.
       # Default: false
       check-blank: true
@@ -442,7 +457,7 @@ linters:
       # from json encoding functions that are safe to be ignored,
       # because they are not possible to happen.
       #
-      # if check-error-free-encoding is set to true and errcheck linter is enabled,
+      # If check-error-free-encoding is set to true and errcheck linter is enabled,
       # it is recommended to add the following exceptions to prevent from false positives:
       #
       #     linters:
@@ -553,11 +568,68 @@ linters:
       # Default: false
       allow-empty-declarations: true
 
+    exhaustruct_v5:
+      # List of regular expressions to match type names that should be checked.
+      # Anonymous structs can be matched by '<anonymous>' alias.
+      #
+      # Each regular expression must match the full type name, including package path.
+      # For example, to match type `net/http.Cookie` regular expression should be `.*/http\.Cookie`,
+      # but not `http\.Cookie`.
+      # Default: []
+      enforce-patterns:
+        - '.+\.Test'
+        - 'example\.com/package\.ExampleStruct[\d]{1,2}'
+      # List of regular expressions to match type names that should be skipped from checking.
+      # Anonymous structs can be matched by '<anonymous>' alias.
+      # Has precedence over `include`.
+      # Each regular expression must match the full type name, including package path.
+      # For example, to match type `net/http.Cookie` regular expression should be `.*/http\.Cookie`,
+      # but not `http\.Cookie`.
+      # Default: []
+      ignore-patterns:
+        - '.+/cobra\.Command$'
+      # List of regular expressions to match type names where
+      # all fields are treated as optional. Anonymous structs can be matched by
+      # '<anonymous>' alias.
+      #
+      # Each regular expression must match the full type name, including package path.
+      # For example, to match type `net/http.Cookie` regular expression should be
+      # `.*/http\.Cookie`, but not `http\.Cookie`.
+      # Default: []
+      optional-patterns:
+        - '.+Foo'
+      # Allows empty structures, effectively excluding them from the check.
+      # Default: false
+      allow-empty: true
+      # List of regular expressions to match type names that should be allowed to be empty.
+      # Anonymous structs can be matched by '<anonymous>' alias.
+      # Each regular expression must match the full type name, including package path.
+      # For example, to match type `net/http.Cookie` regular expression should be `.*/http\.Cookie`,
+      # but not `http\.Cookie`.
+      # Default: []
+      allow-empty-patterns:
+        - '.*/http\.Cookie'
+      # Allows empty structures in return statements.
+      # Default: false
+      allow-empty-returns: true
+      # Allows empty structures in variable declarations.
+      # Default: false
+      allow-empty-declarations: true
+      # When true, only types marked with //exhaustruct:enforce directive or matching enforce-rx patterns are checked.
+      # Default: false
+      explicit-mode: true
+
     fatcontext:
       # Check for potential fat contexts in struct pointers.
       # May generate false positives.
       # Default: false
       check-struct-pointers: true
+      # Disable detection of fat contexts in loops.
+      # Default: true
+      check-loops: false
+      # Disable detection of fat contexts in function literals.
+      # Default: true
+      check-function-literals: false
 
     forbidigo:
       # Forbid the following identifiers (list of regexp).
@@ -599,6 +671,9 @@ linters:
       # Checks if the constructors and/or structure methods are sorted alphabetically.
       # Default: false
       alphabetical: true
+      # Checks that exported functions are placed before unexported functions.
+      # Default: false
+      function: true
 
     funlen:
       # Checks the number of lines in a function.
@@ -652,7 +727,7 @@ linters:
       force-expect-to: true
 
       # Best effort validation of async intervals (timeout and polling).
-      # Ignored the `suppress-async-assertion` is true.
+      # Ignored if `suppress-async-assertion` is true.
       # Default: false
       validate-async-intervals: true
 
@@ -707,6 +782,28 @@ linters:
       # Ignore when constant is not used as function argument.
       # Default: true
       ignore-calls: false
+      # Ignore constants from specific types.
+      # Default: [Call]
+      exclude-types:
+        # Represents a string in an assignment context.
+        # (e.g., x := "foo")
+        - Assignment
+        # Represents a string in a binary expression.
+        # (e.g., x == "foo")
+        - Binary
+        # Represents a string in a case clause.
+        # (e.g., case "foo":)
+        - Case
+        # Represents a string in a return statement.
+        # (e.g., return "foo")
+        - Return
+        # Represents a string passed as an argument to a function call.
+        # (e.g., f("foo"))
+        - Call
+        # Represents a string inside a composite literal.
+        # (e.g., []string{"foo"}, map[string]string{"k": "v" }, MyStruct{Field: "foo" })
+        - CompositeLit
+
       # Exclude strings matching the given regular expression.
       # Default: ""
       ignore-string-values:
@@ -717,6 +814,18 @@ linters:
       # Evaluates of constant expressions like Prefix + "suffix".
       # Default: false
       eval-const-expressions: true
+      # Ignore strings from test files.
+      # Default: false
+      ignore-tests: true
+      # Ignore string literals in calls to these functions.
+      # Default: empty list
+      ignore-functions:
+        - log.Info
+        - slog.Warn
+        - fmt.Errorf
+      # Ignore string literals used as map keys.
+      # Default: false
+      ignore-map-keys: true
 
     gocritic:
       # Disable all checks.
@@ -1396,7 +1505,7 @@ linters:
           COMPANY: MY COMPANY
         regexp:
           # Define here regexp type values.
-          # for example:
+          # For example:
           AUTHOR: .*@mycompany\.com
       # The template used for checking.
       # Put here copyright header template for source code files.
@@ -1433,6 +1542,9 @@ linters:
       # Default: []
       replace-allow-list:
         - launchpad.net/gocheck
+      # Allow all `replace` directives.
+      # Default: false
+      replace-allow-all: true
       # Allow to not explain why the version has been retracted in the `retract` directives.
       # Default: false
       retract-allow-no-explanation: true
@@ -1495,6 +1607,34 @@ linters:
         # Default: false
         local-replace-directives: false
 
+    gomodguard_v2:
+      # Blocks 'replace' directives using local filesystem paths
+      # Default: false
+      local-replace-directives: true
+      # List of allowed modules.
+      allowed:
+        - module: go.yaml.in/yaml/v4
+        - module: github.com/confluentinc/confluent-kafka-go/v2
+          version: "== 2.5.0"
+        - module: github.com/kubernetes
+          # exact (default), prefix, regex
+          match-type: prefix
+        - module: "github.com/somecompany/.*"
+          match-type: regex
+      # List of blocked modules.
+      blocked:
+        - module: github.com/uudashr/go-module
+          match-type: exact
+          recommendations:
+            - golang.org/x/mod
+          reason: "`mod` is the official go.mod parser library."
+        - module: github.com/mitchellh/go-homedir
+          version: "<= 1.1.0"
+          reason: "testing if blocked version constraint works."
+        - module: "github.com/badcompany/.*"
+          match-type: regex
+          reason: "No badcompany packages are permitted."
+
     gosec:
       # To select a subset of rules to run.
       # Available rules: https://github.com/securego/gosec#available-rules
@@ -1511,10 +1651,18 @@ linters:
         - G110 # Detect io.Copy instead of io.CopyN when decompression
         - G111 # Detect http.Dir('/') as a potential risk
         - G112 # Detect ReadHeaderTimeout not configured as a potential risk
+        - G113 # HTTP request smuggling via conflicting headers or bare LF in body parsing
         - G114 # Use of net/http serve function that has no support for setting timeouts
         - G115 # Type conversion which leads to integer overflow
         - G116 # Detect Trojan Source attacks using bidirectional Unicode characters
-        - G117 # Potential exposure of secrets via JSON marshaling
+        - G117 # Potential exposure of secrets via JSON/YAML/XML/TOML marshaling
+        - G118 # Context propagation failure leading to goroutine/resource leaks
+        - G119 # Unsafe redirect policy may propagate sensitive headers
+        - G120 # Unbounded form parsing in HTTP handlers can cause memory exhaustion
+        - G121 # Unsafe CrossOriginProtection bypass patterns
+        - G122 # Filesystem TOCTOU race risk in filepath.Walk/WalkDir callbacks
+        - G123 # TLS resumption may bypass VerifyPeerCertificate when VerifyConnection is unset
+        - G124 # Insecure HTTP cookie configuration missing Secure, HttpOnly, or SameSite attributes
         - G201 # SQL query construction using format string
         - G202 # SQL query construction using string concatenation
         - G203 # Use of unescaped data in HTML templates
@@ -1532,6 +1680,7 @@ linters:
         - G404 # Insecure random number source (rand)
         - G405 # Detect the usage of DES or RC4
         - G406 # Detect the usage of deprecated MD4 or RIPEMD160
+        - G408 # Stateful misuse of ssh.PublicKeyCallback leading to auth bypass
         - G501 # Import blocklist: crypto/md5
         - G502 # Import blocklist: crypto/des
         - G503 # Import blocklist: crypto/rc4
@@ -1547,6 +1696,10 @@ linters:
         - G704 # SSRF via taint analysis
         - G705 # XSS via taint analysis
         - G706 # Log injection via taint analysis
+        - G707 # SMTP command/header injection via taint analysis
+        - G708 # Server-side template injection via taint analysis
+        - G709 # Unsafe deserialization of untrusted data via taint analysis
+        - G710 # Open redirect via taint analysis
 
       # To specify a set of rules to explicitly exclude.
       # Available rules: https://github.com/securego/gosec#available-rules
@@ -1563,9 +1716,18 @@ linters:
         - G110 # Detect io.Copy instead of io.CopyN when decompression
         - G111 # Detect http.Dir('/') as a potential risk
         - G112 # Detect ReadHeaderTimeout not configured as a potential risk
+        - G113 # HTTP request smuggling via conflicting headers or bare LF in body parsing
         - G114 # Use of net/http serve function that has no support for setting timeouts
         - G115 # Type conversion which leads to integer overflow
         - G116 # Detect Trojan Source attacks using bidirectional Unicode characters
+        - G117 # Potential exposure of secrets via JSON/YAML/XML/TOML marshaling
+        - G118 # Context propagation failure leading to goroutine/resource leaks
+        - G119 # Unsafe redirect policy may propagate sensitive headers
+        - G120 # Unbounded form parsing in HTTP handlers can cause memory exhaustion
+        - G121 # Unsafe CrossOriginProtection bypass patterns
+        - G122 # Filesystem TOCTOU race risk in filepath.Walk/WalkDir callbacks
+        - G123 # TLS resumption may bypass VerifyPeerCertificate when VerifyConnection is unset
+        - G124 # Insecure HTTP cookie configuration missing Secure, HttpOnly, or SameSite attributes
         - G201 # SQL query construction using format string
         - G202 # SQL query construction using string concatenation
         - G203 # Use of unescaped data in HTML templates
@@ -1583,6 +1745,7 @@ linters:
         - G404 # Insecure random number source (rand)
         - G405 # Detect the usage of DES or RC4
         - G406 # Detect the usage of deprecated MD4 or RIPEMD160
+        - G408 # Stateful misuse of ssh.PublicKeyCallback leading to auth bypass
         - G501 # Import blocklist: crypto/md5
         - G502 # Import blocklist: crypto/des
         - G503 # Import blocklist: crypto/rc4
@@ -1592,6 +1755,16 @@ linters:
         - G507 # Import blocklist: golang.org/x/crypto/ripemd160
         - G601 # Implicit memory aliasing in RangeStmt
         - G602 # Possible slice bounds out of range
+        - G701 # SQL injection via taint analysis
+        - G702 # Command injection via taint analysis
+        - G703 # Path traversal via taint analysis
+        - G704 # SSRF via taint analysis
+        - G705 # XSS via taint analysis
+        - G706 # Log injection via taint analysis
+        - G707 # SMTP command/header injection via taint analysis
+        - G708 # Server-side template injection via taint analysis
+        - G709 # Unsafe deserialization of untrusted data via taint analysis
+        - G710 # Open redirect via taint analysis
 
       # Filter out the issues with a lower severity than the given value.
       # Valid options are: low, medium, high.
@@ -1717,7 +1890,7 @@ linters:
       # Enable analyzers by name.
       # (In addition to default:
       #   appends, asmdecl, assign, atomic, bools, buildtag, cgocall, composites, copylocks, defers, directive, errorsas,
-      #   framepointer, httpresponse, ifaceassert, loopclosure, lostcancel, nilfunc, printf, shift, sigchanyzer, slog,
+      #   framepointer, httpresponse, ifaceassert, inline, loopclosure, lostcancel, nilfunc, printf, shift, sigchanyzer, slog,
       #   stdmethods, stringintconv, structtag, testinggoroutine, tests, timeformat, unmarshal, unreachable, unsafeptr,
       #   unusedresult
       # ).
@@ -1766,6 +1939,8 @@ linters:
         - httpresponse
         # Detect impossible interface-to-interface type assertions.
         - ifaceassert
+        # Find calls to functions and uses of constants marked with a "//go:fix inline" directive.
+        - inline
         # Check references to loop variables from within nested functions.
         - loopclosure
         # Check cancel func returned by context.WithCancel is called.
@@ -1847,6 +2022,7 @@ linters:
         - httpmux
         - httpresponse
         - ifaceassert
+        - inline
         - loopclosure
         - lostcancel
         - nilfunc
@@ -1932,15 +2108,21 @@ linters:
       var-require-grouping: true
 
     iface:
-      # List of analyzers.
+      # List of analyzers to enable.
       # Default: ["identical"]
       enable:
         - identical # Identifies interfaces in the same package that have identical method sets.
         - unused # Identifies interfaces that are not used anywhere in the same package where the interface is defined.
         - opaque # Identifies functions that return interfaces, but the actual returned value is always a single concrete implementation.
         - unexported # Identifies interfaces that are not exported but are used in exported functions or methods.
+        - unusedmethod # Detects interface methods that are never used anywhere in the same package where they are defined.
       settings:
         unused:
+          # List of packages path to exclude from the check.
+          # Default: []
+          exclude:
+            - github.com/example/log
+        unusedmethod:
           # List of packages path to exclude from the check.
           # Default: []
           exclude:
@@ -1953,7 +2135,7 @@ linters:
       # Do not allow non-required aliases.
       # Default: false
       no-extra-aliases: true
-      # List of aliases
+      # List of aliases.
       # Default: []
       alias:
         # Using `servingv1` alias for `knative.dev/serving/pkg/apis/serving/v1` package.
@@ -2139,10 +2321,16 @@ linters:
       disable:
         # Replace interface{} with any.
         - any
-        # Replace []byte(fmt.Sprintf) with fmt.Appendf.
-        - fmtappendf
+        # Replace basic types in sync/atomic calls with atomic types.
+        - atomictypes
+        # Simplify references to embedded fields in composite literals.
+        - embedlit
+        # Replace errors.As with errors.AsType[T].
+        - errorsastype
         # Remove redundant re-declaration of loop variables.
         - forvar
+        # Remove obsolete comments specifying canonical import path.
+        - importcomment
         # Replace explicit loops over maps with calls to maps package.
         - mapsloop
         # Replace if/else statements with calls to min or max.
@@ -2155,8 +2343,14 @@ linters:
         - plusbuild
         # Replace 3-clause for loops with for-range over integers.
         - rangeint
+        # Replace v.Interface().(T) with reflect.TypeAssert[T](v).
+        - reflecttypeassert
         # Replace reflect.TypeOf(x) with TypeFor[T]().
         - reflecttypefor
+        # Replace backward loops over slices with slices.Backward.
+        - slicesbackward
+        # Replace three-index slice expressions with slices.Clip.
+        - slicesclip
         # Replace loops with slices.Contains or slices.ContainsFunc.
         - slicescontains
         # Replace sort.Slice with slices.Sort for basic types.
@@ -2176,7 +2370,7 @@ linters:
         # Replace unsafe pointer arithmetic with function calls.
         - unsafefuncs
         # Replace wg.Add(1)/go/wg.Done() with wg.Go.
-        - waitgroup
+        - waitgroupgo
 
     musttag:
       # A set of custom functions to check in addition to the builtin ones.
@@ -2243,15 +2437,23 @@ linters:
       # Report named error if it is assigned inside defer.
       # Default: false
       report-error-in-defer: true
+      # Allow named returns in the signature but report them if referenced in the body or used by a naked return.
+      # Default: false
+      allow-unused-named-returns: true
 
     paralleltest:
       # Ignore missing calls to `t.Parallel()` and only report incorrect uses of it.
       # Default: false
       ignore-missing: true
-      # Ignore missing calls to `t.Parallel()` in subtests. Top-level tests are
-      # still required to have `t.Parallel`, but subtests are allowed to skip it.
+      # Ignore missing calls to `t.Parallel()` in subtests.
+      # Top-level tests are still required to have `t.Parallel`,
+      # but subtests are allowed to skip it.
       # Default: false
       ignore-missing-subtests: true
+      # Check that `defer` is not used with `t.Parallel`.
+      # (use `t.Cleanup` instead to ensure cleanup runs after parallel subtests complete).
+      # Default: false
+      check-cleanup: true
 
     perfsprint:
       # Enable/disable optimization of integer formatting.
@@ -2813,6 +3015,22 @@ linters:
           exclude: [""]
           arguments:
             - ignore-directories: ["testcases", "testinfo"]
+        # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#package-naming
+        - name: package-naming
+          severity: warning
+          disabled: false
+          exclude: [""]
+          arguments:
+            - skip-convention-name-check: true
+              convention-name-check-regex: "^[a-z][a-zA-Z0-9]*$"
+              skip-top-level-check: true
+              skip-default-bad-name-check: true
+              check-extra-bad-name: true
+              user-defined-bad-names:
+                - foo
+                - bar
+              skip-collision-with-common-std: true
+              check-collision-with-all-std: true
         # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#range
         - name: range
           severity: warning
@@ -2995,6 +3213,11 @@ linters:
           severity: warning
           disabled: false
           exclude: [""]
+        # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#use-slices-sort
+        - name: use-slices-sort
+          severity: warning
+          disabled: false
+          exclude: [""]
         # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#use-waitgroup-go
         - name: use-waitgroup-go
           severity: warning
@@ -3025,11 +3248,6 @@ linters:
             - [ "VM" ] # DenyList
             - - skip-initialism-name-checks: true
                 upper-case-const: true
-                skip-package-name-checks: true
-                skip-package-name-collision-with-go-std: true
-                extra-bad-package-names:
-                  - helpers
-                  - models
         # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#waitgroup-by-value
         - name: waitgroup-by-value
           severity: warning
@@ -3043,65 +3261,76 @@ linters:
         - github.com/jmoiron/sqlx
 
     sloglint:
-      # Enforce not mixing key-value pairs and attributes.
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#no-mixed-arguments
-      # Default: true
-      no-mixed-args: false
-      # Enforce using key-value pairs only (overrides no-mixed-args, incompatible with attr-only).
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#key-value-pairs-only
-      # Default: false
-      kv-only: true
-      # Enforce using attributes only (overrides no-mixed-args, incompatible with kv-only).
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#attributes-only
-      # Default: false
-      attr-only: true
-      # Enforce not using global loggers.
-      # Values:
-      # - "": disabled
-      # - "all": report all global loggers
-      # - "default": report only the default slog logger
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#no-global
+      # Report the use of global loggers.
+      # https://github.com/go-simpler/sloglint#no-global-logger
+      # Values: "all", "default"
       # Default: ""
       no-global: "all"
-      # Enforce using methods that accept a context.
-      # Values:
-      # - "": disabled
-      # - "all": report all contextless calls
-      # - "scope": report only if a context exists in the scope of the outermost function
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#context-only
+      # Report the use of functions without a context.Context.
+      # https://github.com/go-simpler/sloglint#context-only
+      # Values: "all", "scope"
       # Default: ""
       context: "all"
-      # Enforce using static values for log messages.
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#static-messages
+      # Report dynamic log messages, such as those that are built with fmt.Sprintf.
+      # https://github.com/go-simpler/sloglint#static-message
       # Default: false
       static-msg: true
-      # Enforce message style.
-      # Values: lowercased, capitalized
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#message-style
+      # Report log messages that do not match a particular style.
+      # https://github.com/go-simpler/sloglint#message-style
+      # Values: "lowercased", "capitalized"
       # Default: ""
-      msg-style: capitalized
-      # Enforce using constants instead of raw keys.
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#no-raw-keys
+      msg-style: "lowercased"
+      # Report the use of both key-value pairs and attributes within a single function call.
+      # https://github.com/go-simpler/sloglint#no-mixed-arguments
+      # Default: true
+      no-mixed-args: false
+      # Report any use of attributes as function call arguments.
+      # https://github.com/go-simpler/sloglint#key-value-pairs-only
+      # Default: false
+      kv-only: true
+      # Report any use of key-value pairs as function call arguments.
+      # https://github.com/go-simpler/sloglint#attributes-only
+      # Default: false
+      attr-only: true
+      # Report two or more arguments on the same line.
+      # https://github.com/go-simpler/sloglint#arguments-on-separate-lines
+      # Default: false
+      args-on-sep-lines: true
+      # Report the use of string literals as log keys.
+      # https://github.com/go-simpler/sloglint#constant-keys
       # Default: false
       no-raw-keys: true
-      # Enforce key naming convention.
-      # Values: snake, kebab, camel, pascal
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#key-naming-convention
-      # Default: ""
-      key-naming-case: snake
-      # Enforce not using specific keys.
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#forbidden-keys
+      # Report the use of log keys that are not explicitly allowed.
+      # https://github.com/go-simpler/sloglint#allowed-keys
+      # Default: []
+      allowed-keys:
+        - user_id
+      # Report the use of forbidden log keys.
+      # https://github.com/go-simpler/sloglint#forbidden-keys
       # Default: []
       forbidden-keys:
         - time
         - level
         - msg
         - source
-        - foo
-      # Enforce putting arguments on separate lines.
-      # https://github.com/go-simpler/sloglint?tab=readme-ov-file#arguments-on-separate-lines
-      # Default: false
-      args-on-sep-lines: true
+      # Report log keys that do not match a particular naming case.
+      # https://github.com/go-simpler/sloglint#key-naming-case
+      # Values: "snake", "kebab", "camel", "pascal"
+      # Default: ""
+      key-naming-case: "snake"
+      # Analyze custom functions in addition to the standard log/slog functions.
+      # https://github.com/go-simpler/sloglint#custom-function-analysis
+      # Default: []
+      custom-funcs:
+          # The full name of the function, including the package, e.g. "log/slog.Info".
+          # If the function is a method, the receiver type must be wrapped in parentheses, e.g. "(*log/slog.Logger).Info".
+        - name: "(*golang.org/x/exp/slog.Logger).InfoContext"
+          # The position of the "msg string" argument in the function signature, starting from 0.
+          # If there is no message in the function, a negative value must be passed.
+          msg-pos: 1
+          # The position of the "args ...any" argument in the function signature, starting from 0.
+          # If there are no arguments in the function, a negative value must be passed.
+          args-pos: 2
 
     spancheck:
       # Checks to enable.
@@ -4296,6 +4525,13 @@ linters:
       # Default: 0
       case-max-lines: 2
 
+      # Max number of cuddled statements allowed above block statements, go, defer and send.
+      # Every cuddled statement must have at least one variable used in the block.
+      # Respects allow-first-in-block and allow-whole-block.
+      # With 0 no cuddling is allowed at all; every cuddle-checked trigger requires a blank line above it
+      # Default: 1
+      cuddle-max-statements: 2
+
       # Default checks to use.
       # Can be `all`, `none`, `default` or empty.
       # https://github.com/bombsimon/wsl/tree/main?tab=readme-ov-file#checks-and-configuration
@@ -4307,10 +4543,12 @@ linters:
       # https://github.com/bombsimon/wsl/tree/main?tab=readme-ov-file#checks-and-configuration
       # Default: []
       enable:
+        - append
         - assign
         - branch
         - decl
         - defer
+        - err
         - expr
         - for
         - go
@@ -4323,23 +4561,28 @@ linters:
         - send
         - switch
         - type-switch
-        - append
-        - assign-exclusive
-        - assign-expr
-        - err
         - leading-whitespace
         - trailing-whitespace
         - after-block
+        - after-decl
+        - after-defer
+        - after-expr
+        - after-go
+        - assign-exclusive
+        - assign-expr
+        - cuddle-group
 
       # Disable checks.
       # Will be subtractive to any preset.
       # https://github.com/bombsimon/wsl/tree/main?tab=readme-ov-file#checks-and-configuration
       # Default: []
       disable:
+        - append
         - assign
         - branch
         - decl
         - defer
+        - err
         - expr
         - for
         - go
@@ -4352,13 +4595,16 @@ linters:
         - send
         - switch
         - type-switch
-        - append
-        - assign-exclusive
-        - assign-expr
-        - err
         - leading-whitespace
         - trailing-whitespace
         - after-block
+        - after-decl
+        - after-defer
+        - after-expr
+        - after-go
+        - assign-exclusive
+        - assign-expr
+        - cuddle-group
 
     # The custom section can be used to define linter plugins to be loaded at runtime.
     # See README documentation for more info.
@@ -4517,6 +4763,19 @@ formatters:
       # Default: ""
       module-path: github.com/org/project
 
+      # Extra formatting rules.
+      extra:
+        # Groups function parameters with repeated types.
+        # Default: false
+        group-params: true
+        # Clothes naked returns in functions with named results.
+        # Default: false
+        clothe-returns: true
+        # Multi-line function calls with the opening parenthesis at the end of a line should place the closing parenthesis at the start of a line.
+        # Default: false
+        balance-calls: true
+
+      # Deprecated: use `extra` instead.
       # Choose whether to use the extra rules.
       # Default: false
       extra-rules: true

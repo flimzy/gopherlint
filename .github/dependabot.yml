@@ -2,6 +2,12 @@ version: 2
 updates:
   - package-ecosystem: gomod
     directory: "/"
+    cooldown:
+      # Disable cooldown to get the linter's updates as soon as possible.
+      # Note: I don't know if the value 0 works:
+      # - There is no documentation about disabling the cooldown.
+      # - The JSONSchema says that 0 is not valid, but this schema is community maintained and not by GitHub.
+      default-days: 0
     schedule:
       interval: weekly
       day: "sunday"
@@ -16,6 +22,8 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     groups:
       github-actions:
         patterns:
@@ -24,6 +32,8 @@ updates:
     directory: "/build"
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     groups:
       docker:
         patterns:
@@ -32,6 +42,8 @@ updates:
     directory: "/scripts/gen_github_action_config"
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     groups:
       scripts:
         patterns:
@@ -39,6 +51,7 @@ updates:
   - package-ecosystem: gomod
     directories:
       - pkg/golinters/arangolint/testdata/
+      - pkg/golinters/clickhouselint/testdata/
       - pkg/golinters/ginkgolinter/testdata/
       - pkg/golinters/loggercheck/testdata/
       - pkg/golinters/protogetter/testdata/
@@ -52,3 +65,5 @@ updates:
       interval: monthly
       day: "wednesday"
       time: "11:00" # 11am UTC
+    cooldown:
+      default-days: 7

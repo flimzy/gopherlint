@@ -1,7 +1,7 @@
 package gofmt
 
 import (
-	"github.com/golangci/gofmt/gofmt"
+	"github.com/golangci/gofmt"
 
 	"github.com/flimzy/gopherlint/pkg/config"
 )
