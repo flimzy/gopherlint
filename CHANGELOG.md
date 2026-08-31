@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.27.1 (unreleased)
+
+### Bug Fixes (backported)
+
+- **cache**: Reuse cached results across module locations ([golangci-lint#6762](https://github.com/golangci/golangci-lint/pull/6762)). Cache keys and cached issue positions embedded absolute paths, so a module checked out at a different path — CI runners, containers, renamed worktrees — never hit the cache. Paths are now stored relative to the module directory. This release invalidates existing cache entries once.
+- **staticcheck**: Fix two SA4023 false positives introduced in v1.27.0 ([v0.8.1](https://github.com/dominikh/go-tools/releases/tag/v0.8.1)). Unconstrained generics are no longer treated as never-nil ([#1736](https://github.com/dominikh/go-tools/issues/1736)), and comparisons not involving typed nils are no longer flagged ([#1737](https://github.com/dominikh/go-tools/issues/1737)) — `errors.New("") == nil` and similar defensive checks.
+- **unparam**: Fix panic on type parameters used by closures ([mvdan/unparam#2fa3d84](https://github.com/mvdan/unparam/commit/2fa3d841b0c8)). Packages that previously crashed now lint normally, so new findings may appear in generic code. Parameters of zero-sized generic types with phantom type parameters are no longer reported, matching `unparam`'s zero-size skip rule.
+
 ## v1.27.0 (2026-08-20)
 
 Rebased onto `golangci-lint` v2.13.1, targeting Go 1.27. This pulls forward everything from
