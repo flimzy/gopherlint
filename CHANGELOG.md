@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.27.1 (unreleased)
+
+### Bug Fixes (backported)
+
+- **unparam**: Fix panic on type parameters used by closures ([mvdan/unparam#2fa3d84](https://github.com/mvdan/unparam/commit/2fa3d841b0c8)). Packages that previously crashed now lint normally, so new findings may appear in generic code. Parameters of zero-sized generic types with phantom type parameters are no longer reported, matching `unparam`'s zero-size skip rule.
+
 ## v1.27.0 (2026-08-20)
 
 Rebased onto `golangci-lint` v2.13.1, targeting Go 1.27. This pulls forward everything from
