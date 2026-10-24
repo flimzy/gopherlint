@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.27.1 (unreleased)
+## v1.27.2 (unreleased)
 
 ### Bug Fixes (backported)
 
@@ -8,6 +8,12 @@
 - **cache**: Fix cached facts referencing discarded types ([golangci-lint#6810](https://github.com/golangci/golangci-lint/pull/6810)). When a package was reloaded from source after its facts had been loaded from cache, the facts still pointed at the replaced `types.Package`. They are now reloaded against the new types, falling back to analysis from source if that fails.
 - **fix**: Ignore suggested-fix text edits that fall outside the analyzed file ([golangci-lint#6816](https://github.com/golangci/golangci-lint/pull/6816)). Edits for other files (for example from `modernize` when changes are split across files) are skipped instead of being applied to the wrong file ([golangci-lint#6671](https://github.com/golangci/golangci-lint/issues/6671)).
 - **custom**: Include plugin module versions in the custom binary's version string ([golangci-lint#6827](https://github.com/golangci/golangci-lint/pull/6827)). Previously, changing only the version of a module-based plugin did not change the built binary's version.
+- **x/tools**: Fix typecheck failures on Go 1.27.2 and newer by bumping `golang.org/x/tools` v0.49.0 → v0.50.0 ([golang/tools](https://github.com/golang/tools/compare/v0.49.0...v0.50.0)). Go 1.27.2 began emitting version 5 of the unified export-data format, which v0.49.0 cannot read, so every package failed with `export data version 5 is greater than maximum supported version 4`. The bump also updates analyzers from `golang.org/x/tools` (`govet`, `modernize`), so some reports and `--fix` output may differ; for example `modernize`'s `testingcontext` fix now preserves trailing comments and no longer rewrites `context.WithCancel(context.TODO())`.
+
+## v1.27.1 (2026-08-31)
+
+### Bug Fixes (backported)
+
 - **cache**: Reuse cached results across module locations ([golangci-lint#6762](https://github.com/golangci/golangci-lint/pull/6762)). Cache keys and cached issue positions embedded absolute paths, so a module checked out at a different path — CI runners, containers, renamed worktrees — never hit the cache. Paths are now stored relative to the module directory. This release invalidates existing cache entries once.
 - **staticcheck**: Fix two SA4023 false positives introduced in v1.27.0 ([v0.8.1](https://github.com/dominikh/go-tools/releases/tag/v0.8.1)). Unconstrained generics are no longer treated as never-nil ([#1736](https://github.com/dominikh/go-tools/issues/1736)), and comparisons not involving typed nils are no longer flagged ([#1737](https://github.com/dominikh/go-tools/issues/1737)) — `errors.New("") == nil` and similar defensive checks.
 - **unparam**: Fix panic on type parameters used by closures ([mvdan/unparam#2fa3d84](https://github.com/mvdan/unparam/commit/2fa3d841b0c8)). Packages that previously crashed now lint normally, so new findings may appear in generic code. Parameters of zero-sized generic types with phantom type parameters are no longer reported, matching `unparam`'s zero-size skip rule.

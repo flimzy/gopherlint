@@ -251,7 +251,7 @@ func (lp *loadingPackage) loadFromExportData() error {
 	}
 	defer f.Close()
 
-	r, err := gcexportdata.NewReader(f)
+	r, err := gcexportdata.NewReader(f) //nolint:staticcheck // deprecated until Go 1.29 drops archive support; kept to preserve behavior
 	if err != nil {
 		return err
 	}
