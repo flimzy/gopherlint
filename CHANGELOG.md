@@ -1,6 +1,18 @@
 # Changelog
 
-## v1.27.1 (unreleased)
+## v1.27.2 (unreleased)
+
+### Bug Fixes (backported)
+
+- **env**: Fix `GOCACHE`/`GOROOT` discovery being silently discarded ([golangci-lint#6857](https://github.com/golangci/golangci-lint/pull/6857)). `Env.Discover` used a value receiver, so the discovered values were never stored and lookups fell back to empty when the process environment did not set them.
+- **cache**: Fix cached facts referencing discarded types ([golangci-lint#6810](https://github.com/golangci/golangci-lint/pull/6810)). When a package was reloaded from source after its facts had been loaded from cache, the facts still pointed at the replaced `types.Package`. They are now reloaded against the new types, falling back to analysis from source if that fails.
+- **fix**: Ignore suggested-fix text edits that fall outside the analyzed file ([golangci-lint#6816](https://github.com/golangci/golangci-lint/pull/6816)). Edits for other files (for example from `modernize` when changes are split across files) are skipped instead of being applied to the wrong file ([golangci-lint#6671](https://github.com/golangci/golangci-lint/issues/6671)).
+- **custom**: Include plugin module versions in the custom binary's version string ([golangci-lint#6827](https://github.com/golangci/golangci-lint/pull/6827)). Previously, changing only the version of a module-based plugin did not change the built binary's version.
+- **paralleltest**: No longer requires `t.Parallel()` in tests that call `t.Chdir()` ([v1.0.16](https://github.com/kunwardeep/paralleltest/releases/tag/v1.0.16)). Such tests cannot run in parallel, so reporting them was a false positive. This also updates `golang.org/x/text` v0.40.0 → v0.41.0 (indirect), which fixes a panic parsing crafted input in `secure/precis` ([GO-2026-6629](https://pkg.go.dev/vuln/GO-2026-6629)); gopherlint does not call that code.
+- **staticcheck**: Fix nilness and IR construction bugs ([v0.8.2](https://github.com/dominikh/go-tools/releases/tag/v0.8.2)). Includes more accurate nil tracking (constants of unconstrained type parameters are not always nil, global provenance is propagated across branches), correct evaluation order for single-case receives, `goto` vs. `continue` in range-over-func loops, receiver instantiation of nested functions in generic code, and selectors on instantiated generic types. Findings from SA4023 and other nilness-based checks may change.
+- **x/tools**: Fix typecheck failures on Go 1.27.2 and newer by bumping `golang.org/x/tools` v0.49.0 → v0.51.0 (v0.50.0 added support for the new format; v0.51.0 is required by staticcheck v0.8.2, below). Go 1.27.2 began emitting version 5 of the unified export-data format, which v0.49.0 cannot read, so every package failed with `export data version 5 is greater than maximum supported version 4`. The bump also updates analyzers from `golang.org/x/tools` (`govet`, `modernize`), so some reports and `--fix` output may differ; for example `modernize`'s `testingcontext` fix now preserves trailing comments and no longer rewrites `context.WithCancel(context.TODO())`.
+
+## v1.27.1 (2026-08-31)
 
 ### Bug Fixes (backported)
 

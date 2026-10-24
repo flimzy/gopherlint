@@ -18,7 +18,7 @@ jobs:
       # ex:
       # - 1.18beta1 -> 1.18.0-beta.1
       # - 1.18rc1 -> 1.18.0-rc.1
-      GO_VERSION: '1.27.0'
+      GO_VERSION: '1.27.3'
     steps:
       # temporary workaround for an error in free disk space action
       # https://github.com/jlumbroso/free-disk-space/issues/14
@@ -29,7 +29,7 @@ jobs:
 
       # https://github.com/marketplace/actions/free-disk-space-ubuntu
       - name: Free Disk Space
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
         with:
           # this might remove tools that are actually needed
           tool-cache: false

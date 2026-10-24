@@ -84,7 +84,7 @@ require (
 	github.com/kisielk/errcheck v1.20.0
 	github.com/kkHAIKE/contextcheck v1.1.6
 	github.com/kulti/thelper v0.7.1
-	github.com/kunwardeep/paralleltest v1.0.15
+	github.com/kunwardeep/paralleltest v1.0.16
 	github.com/lasiar/canonicalheader v1.1.2
 	github.com/ldez/exptostd v0.4.5
 	github.com/ldez/gomoddirectives v0.9.0
@@ -150,11 +150,11 @@ require (
 	go.augendre.info/fatcontext v0.10.0
 	go.yaml.in/yaml/v3 v3.0.5
 	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b
-	golang.org/x/mod v0.40.0
-	golang.org/x/sync v0.22.0
-	golang.org/x/sys v0.47.0
-	golang.org/x/tools v0.49.0
-	honnef.co/go/tools v0.8.1
+	golang.org/x/mod v0.41.0
+	golang.org/x/sync v0.23.0
+	golang.org/x/sys v0.48.0
+	golang.org/x/tools v0.51.0
+	honnef.co/go/tools v0.8.2
 	mvdan.cc/gofumpt v0.11.0
 	mvdan.cc/unparam v0.0.0-20260823230713-2fa3d841b0c8
 )
@@ -231,7 +231,7 @@ require (
 	go.uber.org/multierr v1.10.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20260811152304-ee035b5b010f // indirect
-	golang.org/x/text v0.40.0 // indirect
+	golang.org/x/text v0.41.0 // indirect
 	golang.org/x/tools/go/packages/packagestest v0.1.1-deprecated // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
