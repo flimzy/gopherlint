@@ -84,7 +84,7 @@ require (
 	github.com/kisielk/errcheck v1.20.0
 	github.com/kkHAIKE/contextcheck v1.1.6
 	github.com/kulti/thelper v0.7.1
-	github.com/kunwardeep/paralleltest v1.0.15
+	github.com/kunwardeep/paralleltest v1.0.16
 	github.com/lasiar/canonicalheader v1.1.2
 	github.com/ldez/exptostd v0.4.5
 	github.com/ldez/gomoddirectives v0.9.0
@@ -231,7 +231,7 @@ require (
 	go.uber.org/multierr v1.10.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20260811152304-ee035b5b010f // indirect
-	golang.org/x/text v0.40.0 // indirect
+	golang.org/x/text v0.41.0 // indirect
 	golang.org/x/tools/go/packages/packagestest v0.1.1-deprecated // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
