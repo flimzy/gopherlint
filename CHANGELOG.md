@@ -1,6 +1,12 @@
 # Changelog
 
-## v1.27.2 (unreleased)
+## v1.27.3 (unreleased)
+
+### Bug Fixes
+
+- **version**: `gopherlint --version` now reports `gopherlint` instead of `golangci-lint`.
+
+## v1.27.2 (2026-10-23)
 
 ### Bug Fixes (backported)
 
